@@ -29,13 +29,15 @@ function PropertyScreen(): JSX.Element {
               <img
                 className="property__image"
                 src="img/apartment-03.jpg"
-                alt="Studio" />
+                alt="Studio"
+              />
             </div>
             <div className="property__image-wrapper">
               <img
                 className="property__image"
                 src="img/studio-01.jpg"
-                alt="Studio" />
+                alt="Studio"
+              />
             </div>
             <div className="property__image-wrapper">
               <img
@@ -55,9 +57,7 @@ function PropertyScreen(): JSX.Element {
               <h1 className="property__name">
                 Beautiful &amp; luxurious studio at great location
               </h1>
-              <button
-                className="property__bookmark-button button"
-                type="button">
+              <button className="property__bookmark-button button" type="button">
                 <svg className="property__bookmark-icon" width="31" height="33">
                   <use xlinkHref="#icon-bookmark"></use>
                 </svg>
@@ -150,10 +150,9 @@ function PropertyScreen(): JSX.Element {
               </div>
             </div>
             <section className="property__reviews reviews">
-              <h2
-                className="reviews__title">Reviews &middot;
-                <span
-                  className="reviews__amount">
+              <h2 className="reviews__title">
+                Reviews &middot;
+                <span className="reviews__amount">
                   1
                 </span>
               </h2>
@@ -309,8 +308,8 @@ function PropertyScreen(): JSX.Element {
                 <div className="reviews__button-wrapper">
                   <p className="reviews__help">
                     To submit review please make sure to set
-                    <span
-                      className="reviews__star">rating
+                    <span className="reviews__star">
+                      rating
                     </span>
                     and describe your stay with at least
                     <b
