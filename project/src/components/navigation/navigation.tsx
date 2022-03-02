@@ -1,5 +1,5 @@
 import {Link} from 'react-router-dom';
-import {AppRoute} from '../consts';
+import {AppRoute} from '../../consts';
 
 function Navigation(): JSX.Element {
   return (

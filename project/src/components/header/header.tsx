@@ -1,5 +1,5 @@
 import {Link} from 'react-router-dom';
-import {AppRoute} from '../consts';
+import {AppRoute} from '../../consts';
 
 type HeaderProps = {
   navigation?: JSX.Element;
@@ -25,7 +25,6 @@ function Header({navigation}: HeaderProps): JSX.Element {
         </div>
       </div>
     </header>
-
   );
 }
 
