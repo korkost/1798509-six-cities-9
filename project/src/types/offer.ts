@@ -8,7 +8,7 @@ type Countries = 'Paris' | 'Cologne' | 'Brussels' | 'Amsterdam' | 'Hamburg' | 'D
 
 type City = {
   location: Location;
-  name: string;
+  name: Countries;
 }
 
 type Host = {
