@@ -1,15 +1,12 @@
-import {Review} from '../../types/review';
+import { Review } from '../../types/review';
+import { getFormatDate, getRatingPercent } from '../../consts';
 
 type ReviewProps = {
   review: Review;
 }
 
-function PlaceReview ({review}: ReviewProps): JSX.Element {
-  const {user, comment, rating, date} = review;
-
-  const month = new Date(date).toLocaleString('en-us', { month: 'short' });
-  const year = new Date(date).getFullYear();
-  const argumentDate = `${year}-${new Date(date).getMonth()}-${new Date(date).getDate()}`;
+function PlaceReview({ review }: ReviewProps): JSX.Element {
+  const { user, comment, rating, date } = review;
 
   return (
     <li className="reviews__item">
@@ -30,14 +27,16 @@ function PlaceReview ({review}: ReviewProps): JSX.Element {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{width: '80%'}}></span>
+            <span style={{ width: `${getRatingPercent(rating)}%` }}></span>
             <span className="visually-hidden">{rating}</span>
           </div>
         </div>
         <p className="reviews__text">
           {comment}
         </p>
-        <time className="reviews__time" dateTime={argumentDate}>{month} {year}</time>
+        <time className="reviews__time" dateTime={date}>
+          {getFormatDate(date)}
+        </time>
       </div>
     </li>
   );

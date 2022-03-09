@@ -1,6 +1,6 @@
 import Header from '../../components/header/header';
 import Navigation from '../../components/navigation/navigation';
-import {Offer} from '../../types/offer';
+import { Offer } from '../../types/offer';
 import FavoriteCard from '../../components/favorite-card/favorite-card';
 
 type FavoritesProps = {

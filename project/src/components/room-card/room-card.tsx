@@ -1,7 +1,8 @@
 import { v4 as uuidv4 } from 'uuid';
 import { Offer } from '../../types/offer';
 import { Review } from '../../types/review';
-import CommentForm from '../form/form';
+import { getRatingPercent } from '../../consts';
+import ReviewsForm from '../form/review-form';
 import PlaceReview from '../place-review/place-review';
 
 type RoomCardProps = {
@@ -10,9 +11,20 @@ type RoomCardProps = {
 };
 
 function RoomCard(props: RoomCardProps): JSX.Element {
-  const {offer, reviews} = props;
-  const {images, price, rating, title, type, description, bedrooms, maxAdults, host, isPremium, goods} = offer;
-  const getPropertyMark = () => isPremium? <div className="property__mark"><span>Premium</span></div> : '';
+  const { offer, reviews } = props;
+  const {
+    images,
+    price,
+    rating,
+    title,
+    type,
+    description,
+    bedrooms,
+    maxAdults,
+    host,
+    isPremium,
+    goods,
+  } = offer;
 
   return (
     <>
@@ -33,7 +45,11 @@ function RoomCard(props: RoomCardProps): JSX.Element {
       </div>
       <div className="property__container container">
         <div className="property__wrapper">
-          {getPropertyMark()}
+          {isPremium && (
+            <div className="property__mark">
+              <span>Premium</span>
+            </div>
+          )}
           <div className="property__name-wrapper">
             <h1 className="property__name">
               {title}
@@ -47,7 +63,7 @@ function RoomCard(props: RoomCardProps): JSX.Element {
           </div>
           <div className="property__rating rating">
             <div className="property__stars rating__stars">
-              <span style={{width: '80%'}}></span>
+              <span style={{ width: `${getRatingPercent(rating)}%` }}></span>
               <span className="visually-hidden">Rating</span>
             </div>
             <span className="property__rating-value rating__value">{rating}</span>
@@ -95,7 +111,7 @@ function RoomCard(props: RoomCardProps): JSX.Element {
                 {host.name}
               </span>
               <span className="property__user-status">
-                {host.isPro? 'Pro' : ''}
+                {host.isPro ? 'Pro' : ''}
               </span>
             </div>
             <div className="property__description">
@@ -121,7 +137,7 @@ function RoomCard(props: RoomCardProps): JSX.Element {
                 ))
               }
             </ul>
-            <CommentForm />
+            <ReviewsForm />
           </section>
         </div>
       </div>

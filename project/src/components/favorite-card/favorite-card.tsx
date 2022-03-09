@@ -1,16 +1,23 @@
-import {Link} from 'react-router-dom';
-import {Offer} from '../../types/offer';
+import { Link } from 'react-router-dom';
+import { Offer } from '../../types/offer';
 
 type FavoriteCardProps = {
   offer: Offer;
 };
 
 function FavoriteCard(props: FavoriteCardProps): JSX.Element {
-  const {offer} = props;
-  const {previewImage, price, rating, title, type, id} = offer;
+  const { offer } = props;
+  const {
+    previewImage,
+    price,
+    rating,
+    title,
+    type,
+    id,
+  } = offer;
 
   return (
-    <article key = {offer.id} className="favorites__card place-card">
+    <article key={offer.id} className="favorites__card place-card">
       <div className="favorites__image-wrapper place-card__image-wrapper">
         <Link to={`/offer/${id}`} title='/offer'>
           <img
@@ -37,7 +44,7 @@ function FavoriteCard(props: FavoriteCardProps): JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: '80%'}}></span>
+            <span style={{ width: '80%' }}></span>
             <span className="visually-hidden">{rating}</span>
           </div>
         </div>
