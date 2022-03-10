@@ -1,14 +1,14 @@
-import PlaceCard from '../../components/place-card';
-import Header from '../../components/header';
-import Navigation from '../../components/navigation';
+import CardsList from '../../components/card-list/cards-list';
+import Header from '../../components/header/header';
+import Navigation from '../../components/navigation/navigation';
+import { Offer } from '../../types/offer';
 
 type MainProps = {
   placesCount: number;
+  offers: Offer[];
 }
 
-const cards = Array.from({length: 5}, PlaceCard);
-
-function Main({placesCount}: MainProps): JSX.Element {
+function Main({placesCount, offers}: MainProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       {<Header navigation={<Navigation />} />}
@@ -70,13 +70,7 @@ function Main({placesCount}: MainProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                {
-                  [
-                    cards,
-                  ].map((item) => item)
-                }
-              </div>
+              {<CardsList offers={offers} />}
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>
