@@ -1,9 +1,9 @@
+import ReviewsForm from '../form/review-form';
 import { v4 as uuidv4 } from 'uuid';
 import { Offer } from '../../types/offer';
 import { Review } from '../../types/review';
 import { getRatingPercent } from '../../consts';
-import ReviewsForm from '../form/review-form';
-import PlaceReview from '../place-review/place-review';
+import PlaceReviewList from '../place-review-list/place-review-list';
 
 type RoomCardProps = {
   offer: Offer;
@@ -127,16 +127,7 @@ function RoomCard(props: RoomCardProps): JSX.Element {
                 1
               </span>
             </h2>
-            <ul className="reviews__list">
-              {
-                reviews.map((review) => (
-                  <PlaceReview
-                    key={review.id}
-                    review={review}
-                  />
-                ))
-              }
-            </ul>
+            <PlaceReviewList reviews={reviews} />
             <ReviewsForm />
           </section>
         </div>

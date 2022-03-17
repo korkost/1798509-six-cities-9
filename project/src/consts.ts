@@ -1,3 +1,5 @@
+import {PointExpression} from 'leaflet';
+
 enum AppRoute {
   Login = '/login',
   Favorites = '/favorites',
@@ -42,6 +44,27 @@ const RATING = [
   },
 ];
 
+const PIN = '/img/pin.svg';
+const PIN_ACTIVE = '/img/pin-active.svg';
+const DEFAULT_ICON_SIZE: PointExpression = [27, 39];
+const DEFAULT_ANCHOR_SIZE: PointExpression = [13, 39];
+
+const Cities = {
+  PARIS: 'Paris',
+  COLOGNE: 'Cologne',
+  BRUSSELS: 'Brussels',
+  AMSTERDAM: 'Amsterdam',
+  HAMBURG: 'Hamburg',
+  DUSSELDORF: 'Dusseldorf',
+};
+
+const SortingType = {
+  POPULAR: 'Popular',
+  PRICE_TO_HIGH: 'Price: low to high',
+  PRICE_TO_LOW: 'Price: high to low',
+  TOP: 'Top rated first',
+};
+
 const MAX_RATING = 5;
 
 const getRatingPercent = (rating: number) => (rating / MAX_RATING) * 100;
@@ -54,4 +77,16 @@ const getFormatDate = (date: string) => {
   return `${getMonth} ${getYear}`;
 };
 
-export {AppRoute, AuthorizationStatus, RATING, getRatingPercent, getFormatDate};
+export {
+  AppRoute,
+  AuthorizationStatus,
+  SortingType,
+  Cities,
+  PIN,
+  PIN_ACTIVE,
+  RATING,
+  getRatingPercent,
+  getFormatDate,
+  DEFAULT_ICON_SIZE,
+  DEFAULT_ANCHOR_SIZE
+};

@@ -1,4 +1,8 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import {
+  ChangeEvent,
+  FormEvent,
+  useState
+} from 'react';
 import Rating from '../form/rating-form';
 
 const MIN_COMMENT_LENGTH = 50;
