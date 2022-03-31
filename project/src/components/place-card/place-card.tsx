@@ -23,7 +23,11 @@ function PlaceCard(props: PlaceCardProps): JSX.Element {
   const getCardMark = () => isPremium ? <div className="place-card__mark"><span>Premium</span></div> : '';
 
   return (
-    <article className={`${articleClassChange} place-card`} onMouseEnter={() => { onListItemHover && onListItemHover(id); }} onMouseLeave={() => { onListItemHover && onListItemHover(0); }} >
+    <article
+      className={`${articleClassChange} place-card`}
+      onMouseEnter={() => { onListItemHover && onListItemHover(id); }}
+      onMouseLeave={() => { onListItemHover && onListItemHover(0); }}
+    >
       {getCardMark()}
       <div className={`${imgClassChange} place-card__image-wrapper`}>
         <Link to={`/offer/${id}`} title='/offer'>

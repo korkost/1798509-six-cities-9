@@ -1,7 +1,6 @@
 import { Review } from '../../types/review';
 import PlaceReview from '../place-review/place-review';
 
-
 type PlaceReviewListProps = {
   reviews: Review[];
 };

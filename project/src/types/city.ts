@@ -1,10 +1,10 @@
 type City = {
   location: {
-  latitude: number
-  longitude: number
-  zoom: number
+    latitude: number
+    longitude: number
+    zoom: number
   }
   name: string
-  };
+};
 
-export type {City};
+export type { City };

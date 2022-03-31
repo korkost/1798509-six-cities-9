@@ -9,6 +9,8 @@ import Map from '../../components/map/map';
 import { useAppDispatch } from '../../hooks';
 import { getOfferId } from '../../store/action';
 
+const MAX_NUMBER_MARKERS = 3;
+
 type RoomProps = {
   offers: Offer[];
   reviews: Review[];
@@ -17,7 +19,7 @@ type RoomProps = {
 
 function Room({ offers, reviews, selectedPoint }: RoomProps): JSX.Element {
 
-  const nextOffers = offers.slice(0, 3);
+  const nextOffers = offers.slice(0, MAX_NUMBER_MARKERS);
 
   const params = useParams();
   const current = params.id;
@@ -43,7 +45,12 @@ function Room({ offers, reviews, selectedPoint }: RoomProps): JSX.Element {
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
               {
-                nextOffers.slice(0, 3).map((item) => <PlaceCard key={item.id} offer={item} articleClassChange={'near-places__card'} imgClassChange={'near-places__image-wrapper'} />)
+                nextOffers.slice(0, MAX_NUMBER_MARKERS).map((item) => (
+                  <PlaceCard key={item.id} offer={item}
+                    articleClassChange={'near-places__card'}
+                    imgClassChange={'near-places__image-wrapper'}
+                  />
+                ))
               }
             </div>
           </section>

@@ -5,6 +5,7 @@ type CityProps = {
   city: string;
   onCityItemHover: (listItemName: string) => void;
 }
+
 function City({city, onCityItemHover}: CityProps): JSX.Element {
   const currentCity = useAppSelector((state) => state.city);
 

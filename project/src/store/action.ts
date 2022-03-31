@@ -9,13 +9,19 @@ const Action = {
 };
 
 const changeСity = createAction(Action.CHANGE_CITY,
-  (value)=>({payload: value}));
+  (value) => ({ payload: value }));
 const getOfferId = createAction(Action.GET_OFFER_ID,
-  (value)=>({payload: value}));
+  (value) => ({ payload: value }));
 const resetOfferId = createAction(Action.RESET_OFFER_ID);
 const openSorting = createAction(Action.OPEN_SORTING);
 const changeSorting = createAction(Action.CHANGE_SORTING,
-  (value)=>({payload: value}));
+  (value) => ({ payload: value }));
 
 
-export {changeСity, getOfferId, resetOfferId, openSorting, changeSorting};
+export {
+  changeСity,
+  getOfferId,
+  resetOfferId,
+  openSorting,
+  changeSorting
+};

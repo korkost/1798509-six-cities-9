@@ -11,7 +11,13 @@ function CitiesList({onCityItemHover}: CitiesListProps): JSX.Element {
   return (
     <ul className="locations__list tabs__list">
       {
-        cities.map((city) =><City key={city} onCityItemHover={onCityItemHover} city={city} />)
+        cities.map((city) => (
+          <City
+            key={city}
+            onCityItemHover={onCityItemHover}
+            city={city}
+          />
+        ))
       }
     </ul>
   );
