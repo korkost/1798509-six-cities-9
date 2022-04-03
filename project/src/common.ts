@@ -1,4 +1,4 @@
-import { SortingType } from './consts';
+import { offersType, SortingType } from './consts';
 import { Offer } from './types/offer';
 
 const sortOffers = (offers: Offer[], city: string, type: string ) => {
@@ -18,4 +18,23 @@ const sortOffers = (offers: Offer[], city: string, type: string ) => {
   }
 };
 
-export {sortOffers};
+const paintRating = (rating: number) => Math.round(rating)*20;
+
+const correctType = (type: string) => {
+  switch (type) {
+    case 'apartment':
+      return offersType.APPARTMENT;
+      break;
+    case 'room':
+      return offersType.ROOM;
+      break;
+    case 'house':
+      return offersType.HOUSE;
+      break;
+    case 'hotel':
+      return offersType.HOTEL;
+      break;
+  }
+};
+
+export {sortOffers, paintRating, correctType};

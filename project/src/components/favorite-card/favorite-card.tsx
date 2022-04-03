@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Offer } from '../../types/offer';
+import { correctType } from '../../common';
 
 type FavoriteCardProps = {
   offer: Offer;
@@ -53,7 +54,7 @@ function FavoriteCard(props: FavoriteCardProps): JSX.Element {
             <a href="/">{title}</a>
           </h2>
         </Link>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{correctType(type)}</p>
       </div>
     </article>
   );

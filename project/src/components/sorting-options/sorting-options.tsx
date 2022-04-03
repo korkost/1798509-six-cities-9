@@ -1,14 +1,14 @@
+import { useState } from 'react';
 import { SortingType } from '../../consts';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { openSorting } from '../../store/action';
+import { useAppSelector } from '../../hooks';
 import SortingElement from '../sorting-element/sorting-element';
 
 function SortingOptions(): JSX.Element {
-  const isSorting = useAppSelector((state) => state.openSorting);
   const currentType = useAppSelector((state) => state.sortingType);
-  const dispatch = useAppDispatch();
-  const toggle = () => dispatch(openSorting());
   const types = Object.values(SortingType);
+
+  const [ visible, setVisible ] = useState(false);
+  const toggle = () => setVisible(!visible);
 
   return (
     <form className="places__sorting" action="#" method="get">
@@ -22,7 +22,7 @@ function SortingOptions(): JSX.Element {
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
       </span>
-      <ul className={`places__options places__options--custom ${isSorting&&'places__options--opened'}`}>
+      <ul className={`places__options places__options--custom ${visible&&'places__options--opened'}`}>
         {types.map((type) =>
           <SortingElement key={type} type={type} toggle={toggle}/>)}
       </ul>

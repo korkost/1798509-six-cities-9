@@ -1,3 +1,4 @@
+import { useAppSelector } from '../../hooks';
 import { Offer } from '../../types/offer';
 import CardsList from '../cards-list/cards-list';
 import Map from '../map/map';
@@ -6,11 +7,10 @@ import SortingOptions from '../sorting-options/sorting-options';
 type FullContainerProps = {
   offers: Offer[];
   onListItemHover: (listItemName: number) => void;
-  currentCity: string;
-  selectedPoint: number;
 }
 
-function FullContainer({offers, onListItemHover, currentCity, selectedPoint}: FullContainerProps): JSX.Element {
+function FullContainer({offers, onListItemHover}: FullContainerProps): JSX.Element {
+  const currentCity = useAppSelector((state) => state.city);
 
   return (
     <div className="cities__places-container container">
@@ -22,7 +22,7 @@ function FullContainer({offers, onListItemHover, currentCity, selectedPoint}: Fu
       </section>
       <div className="cities__right-section">
         <section className="cities__map map">
-          <Map offers={offers} selectedPoint={selectedPoint} />
+          <Map offers={offers}/>
         </section>
       </div>
     </div>

@@ -1,48 +1,53 @@
-import {
-  BrowserRouter,
-  Route,
-  Routes
-} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
+
 import Main from '../pages/main/main';
 import Favorites from '../pages/favorites/favorites';
 import SignIn from '../pages/sign-in/sign-in';
-import Room from '../pages/room/room';
+
 import Error from '../pages/error/error';
 import PrivateRoute from '../components/private-route/private-route';
 
-import { AppRoute, AuthorizationStatus } from '../consts';
-import { Review } from '../types/review';
-import { Offer } from '../types/offer';
+import {AppRoute, AuthorizationStatus} from '../consts';
 import { useAppSelector } from '../hooks';
 import { sortOffers } from '../common';
+import LoadingScreen from '../components/loading-screen/loading-screen';
+import HistoryRouter from '../components/history-route/history-route';
+import browserHistory from '../browser-history';
+import Room from '../pages/room/room';
 
-type AppScreenProps = {
-  offers: Offer[];
-  reviews: Review[];
-}
+const isCheckedAuth = (authorizationStatus: AuthorizationStatus): boolean =>
+  authorizationStatus === AuthorizationStatus.Unknown;
 
-function App({ offers, reviews }: AppScreenProps): JSX.Element {
+function App(): JSX.Element {
   const currentCity = useAppSelector((state) => state.city);
   const currentType = useAppSelector((state) => state.sortingType);
+  const offers = useAppSelector((state) => state.offers);
   const sortedOffers = sortOffers(offers, currentCity, currentType);
-  const selectedPoint = useAppSelector((state) => state.offerId);
+
+  const {authorizationStatus, isDataLoaded} = useAppSelector((state) => state);
+
+  if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
 
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
-        <Route index element={<Main offers={sortedOffers} currentCity={currentCity} selectedPoint={selectedPoint} />} />
+        <Route index element={<Main offers={sortedOffers} />} />
         <Route path={AppRoute.Favorites}
           element={
-            <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
-              <Favorites offers={offers} />
+            <PrivateRoute authorizationStatus={authorizationStatus}>
+              <Favorites offers={offers}/>
             </PrivateRoute>
           }
         />
         <Route path={AppRoute.Login} element={<SignIn />} />
-        <Route path={AppRoute.Offer} element={<Room reviews={reviews} offers={sortedOffers} selectedPoint={selectedPoint} />} />
+        <Route path={AppRoute.Offer} element={<Room />} />
         <Route path="*" element={<Error />} />
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }
 

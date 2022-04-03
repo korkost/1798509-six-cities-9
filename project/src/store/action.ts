@@ -1,27 +1,48 @@
 import { createAction } from '@reduxjs/toolkit';
+import { Offer } from '../types/offer';
+import { ActionType, AppRoute, AuthorizationStatus } from '../consts';
+import { Review } from '../types/review';
 
-const Action = {
-  CHANGE_CITY: 'CHANGE_CITY',
-  GET_OFFER_ID: 'GET_OFFER_ID',
-  RESET_OFFER_ID: 'RESET_OFFER_ID',
-  OPEN_SORTING: 'OPEN_SORTING',
-  CHANGE_SORTING: 'CHANGE_SORTING',
-};
+const changeСity = createAction(ActionType.CHANGE_CITY,
+  (value)=>({payload: value}));
 
-const changeСity = createAction(Action.CHANGE_CITY,
-  (value) => ({ payload: value }));
-const getOfferId = createAction(Action.GET_OFFER_ID,
-  (value) => ({ payload: value }));
-const resetOfferId = createAction(Action.RESET_OFFER_ID);
-const openSorting = createAction(Action.OPEN_SORTING);
-const changeSorting = createAction(Action.CHANGE_SORTING,
-  (value) => ({ payload: value }));
+const getOfferId = createAction(ActionType.GET_OFFER_ID,
+  (value)=>({payload: value}));
 
+const resetOfferId = createAction(ActionType.RESET_OFFER_ID);
+
+const changeSorting = createAction(ActionType.CHANGE_SORTING,
+  (value)=>({payload: value}));
+
+const loadOffer = createAction<Offer>(ActionType.LOAD_OFFER);
+
+const loadOffers = createAction<Offer[]>(ActionType.LOAD_OFFERS);
+
+const loadOffersNearby = createAction<Offer[]>(ActionType.LOAD_OFFERS_NEARBY);
+
+const loadComments = createAction<Review[]>(ActionType.LOAD_COMMENTS);
+
+const resetComments = createAction(ActionType.RESET_COMMENTS);
+
+const requireAuthorization = createAction<AuthorizationStatus>(ActionType.REQUIRE_AUTHORIZATION);
+
+const getLogin = createAction(ActionType.GET_LOGIN, (value)=>({payload: value}));
+
+const getRating = createAction(ActionType.GET_RATING, (value)=>({payload: value}));
+
+export const redirectToRoute = createAction<AppRoute>(ActionType.REDIRECT_TO_ROUTER);
 
 export {
   changeСity,
   getOfferId,
   resetOfferId,
-  openSorting,
-  changeSorting
+  changeSorting,
+  loadOffers,
+  requireAuthorization,
+  loadComments,
+  resetComments,
+  getLogin,
+  getRating,
+  loadOffersNearby,
+  loadOffer
 };

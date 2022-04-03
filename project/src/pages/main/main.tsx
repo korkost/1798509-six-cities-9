@@ -13,14 +13,13 @@ import {
 
 type MainProps = {
   offers: Offer[];
-  currentCity: string;
-  selectedPoint: number;
 }
 
-function Main({ offers, currentCity, selectedPoint }: MainProps): JSX.Element {
+function Main({ offers }: MainProps): JSX.Element {
 
   const dispatch = useAppDispatch();
   const onListItemHover = (listItemName: number) => {
+    dispatch(getOfferId(listItemName));
     const currentPoint = offers.find((offer) =>
       offer.id === listItemName,
     );

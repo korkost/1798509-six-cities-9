@@ -1,31 +1,35 @@
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useEffect, useRef } from 'react';
-import { PIN, PIN_ACTIVE, DEFAULT_ANCHOR_SIZE, DEFAULT_ICON_SIZE } from '../../consts';
+import { PIN, PIN_ACTIVE } from '../../consts';
 import useMap from '../../hooks/useMap';
 import { Offer } from '../../types/offer';
+import { useAppSelector } from '../../hooks';
 
 type MapProps = {
   offers: Offer[];
-  selectedPoint: number;
 };
 
-function Map({offers, selectedPoint}: MapProps) {
-  const currentCity = offers[0].city;
+function Map({offers}: MapProps) {
+  const selectedPoint = useAppSelector((state) => state.offerId);
   const mapRef = useRef(null);
-  const map = useMap(mapRef, currentCity);
-  const {location: {latitude: lat, longitude: lng, zoom}} = currentCity;
+  const currentOffer = useAppSelector((state) => state.offer);
+
+  const map = useMap(mapRef, currentOffer.city);
+  const cityCenter = offers[0].city;
+
+  const {location: {latitude: lat, longitude: lng, zoom}} = cityCenter;
 
   const defaultCustomIcon = leaflet.icon({
     iconUrl: PIN,
-    iconSize: DEFAULT_ICON_SIZE,
-    iconAnchor: DEFAULT_ANCHOR_SIZE,
+    iconSize: [27, 39],
+    iconAnchor: [13, 39],
   });
 
   const currentCustomIcon = leaflet.icon({
     iconUrl: PIN_ACTIVE,
-    iconSize: DEFAULT_ICON_SIZE,
-    iconAnchor: DEFAULT_ANCHOR_SIZE,
+    iconSize: [27, 39],
+    iconAnchor: [13, 39],
   });
 
   useEffect(() => {
