@@ -1,6 +1,13 @@
 import { offersType, SortingType } from './consts';
 import { Offer } from './types/offer';
 
+enum PlaseType {
+  Apartment = 'apartment',
+  Room = 'room',
+  House = 'house',
+  Hotel = 'hotel'
+}
+
 const sortOffers = (offers: Offer[], city: string, type: string ) => {
   const filteredOffers = offers.filter((offer) => offer.city.name === city);
   switch (type) {
@@ -22,16 +29,16 @@ const paintRating = (rating: number) => Math.round(rating)*20;
 
 const correctType = (type: string) => {
   switch (type) {
-    case 'apartment':
+    case PlaseType.Apartment:
       return offersType.APPARTMENT;
       break;
-    case 'room':
+    case PlaseType.Room:
       return offersType.ROOM;
       break;
-    case 'house':
+    case PlaseType.House:
       return offersType.HOUSE;
       break;
-    case 'hotel':
+    case PlaseType.Hotel:
       return offersType.HOTEL;
       break;
   }

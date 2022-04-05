@@ -1,7 +1,5 @@
 import {Link} from 'react-router-dom';
 import { correctType, paintRating } from '../../common';
-import { store } from '../../store';
-import { loadOffer } from '../../store/action';
 import {Offer} from '../../types/offer';
 
 type PlaceCardProps = {
@@ -21,7 +19,6 @@ function PlaceCard(props: PlaceCardProps): JSX.Element {
     <article className={`${articleClassChange} place-card`}
       onMouseEnter={()=>{onListItemHover&&onListItemHover(id);}}
       onMouseLeave={()=>{onListItemHover&&onListItemHover(0);}}
-      onClick={()=>{store.dispatch(loadOffer(offer));}}
     >
       {getCardMark()}
       <div className={`${imgClassChange} place-card__image-wrapper`}>

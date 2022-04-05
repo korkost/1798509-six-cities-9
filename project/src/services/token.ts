@@ -16,4 +16,4 @@ const dropToken = (): void => {
 };
 
 export type {Token};
-export {getToken, saveToken, dropToken};
+export {getToken, saveToken, dropToken };

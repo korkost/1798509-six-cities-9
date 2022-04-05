@@ -1,39 +1,47 @@
+import L from 'leaflet';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useEffect, useRef } from 'react';
-import { PIN, PIN_ACTIVE } from '../../consts';
 import useMap from '../../hooks/useMap';
 import { Offer } from '../../types/offer';
 import { useAppSelector } from '../../hooks';
 
-type MapProps = {
-  offers: Offer[];
+const PIN = {
+  URL_DEFAULT: '/img/pin.svg',
+  URL_CUSTOM: '/img/pin-active.svg',
 };
 
-function Map({offers}: MapProps) {
-  const selectedPoint = useAppSelector((state) => state.offerId);
-  const mapRef = useRef(null);
-  const currentOffer = useAppSelector((state) => state.offer);
+type MapProps = {
+  offers: Offer[];
+  currentId?: number;
+};
 
-  const map = useMap(mapRef, currentOffer.city);
+function Map({offers, currentId}: MapProps) {
+  const selectedPin = useAppSelector((state) => state.offerId);
+  const mapRef = useRef(null);
   const cityCenter = offers[0].city;
+  const markerGroup = useRef(L.layerGroup());
 
   const {location: {latitude: lat, longitude: lng, zoom}} = cityCenter;
 
   const defaultCustomIcon = leaflet.icon({
-    iconUrl: PIN,
+    iconUrl: PIN.URL_DEFAULT,
     iconSize: [27, 39],
     iconAnchor: [13, 39],
   });
 
   const currentCustomIcon = leaflet.icon({
-    iconUrl: PIN_ACTIVE,
+    iconUrl: PIN.URL_CUSTOM,
     iconSize: [27, 39],
     iconAnchor: [13, 39],
   });
 
+  const map = useMap(mapRef, cityCenter);
+
   useEffect(() => {
     if (map) {
+      markerGroup.current.clearLayers();
+      markerGroup.current.addTo(map);
 
       offers.forEach(({id, location: {latitude, longitude}}) => {
         leaflet
@@ -41,19 +49,19 @@ function Map({offers}: MapProps) {
             lat: latitude,
             lng: longitude,
           }, {
-            icon: (id === selectedPoint)
+            icon: (id === currentId || id === selectedPin)
               ? currentCustomIcon
               : defaultCustomIcon,
           })
-          .addTo(map);
+          .addTo(markerGroup.current);
       });
       map.flyTo([lat, lng], zoom);
     }
-  }, [currentCustomIcon, defaultCustomIcon, lat, lng, map, offers, selectedPoint, zoom]);
+  }, [currentCustomIcon, defaultCustomIcon, lat, lng, map,  markerGroup, offers, selectedPin, zoom]);
 
   return (
     <div
-      style={{height: '600px'}}
+      style={{height: '100%'}}
       ref={mapRef}
     >
     </div>

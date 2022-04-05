@@ -1,7 +1,6 @@
 import { FormEvent, useRef } from 'react';
 import Header from '../../components/header/header';
 import { useAppDispatch } from '../../hooks';
-import { getLogin } from '../../store/action';
 import { loginAction } from '../../store/api-actions';
 import { AuthData } from '../../types/auth-data';
 
@@ -23,9 +22,7 @@ function SignIn(): JSX.Element {
         login: loginRef.current.value,
         password: passwordRef.current.value,
       });
-      dispatch(getLogin(loginRef.current.value));
-    }
-  };
+    }};
 
   return (
     <div className="page page--gray page--login">

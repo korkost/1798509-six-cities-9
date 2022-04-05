@@ -12,8 +12,11 @@ type Review = {
 };
 
 type NewReview = {
-  comment: string
-  rating: number
+  review: {
+    comment: string,
+    rating: number}
+  ,
+  id: number,
 };
 
 export type {Review, NewReview};

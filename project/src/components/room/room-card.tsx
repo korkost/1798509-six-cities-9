@@ -8,13 +8,14 @@ import { AuthorizationStatus } from '../../consts';
 import { useAppSelector } from '../../hooks';
 import { store } from '../../store';
 import { fetchCommentAction } from '../../store/api-actions';
+import { useEffect } from 'react';
 
 type RoomCardProps = {
   offer: Offer;
+  currentId: number
 };
 
-function RoomCard(props: RoomCardProps): JSX.Element {
-  const {offer} = props;
+function RoomCard({offer, currentId}: RoomCardProps): JSX.Element {
   const {images, price, rating, title, type, description, bedrooms, maxAdults, host, isPremium, goods} = offer;
   const imagesForRender = images.slice(0, 6);
 
@@ -22,7 +23,10 @@ function RoomCard(props: RoomCardProps): JSX.Element {
 
   const currentAuthorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
-  store.dispatch(fetchCommentAction());
+  useEffect(() => {
+    store.dispatch(fetchCommentAction(currentId));
+  }, [currentId]);
+
   const reviews: Review[] = useAppSelector((state) => state.comments);
 
   return (
@@ -108,7 +112,7 @@ function RoomCard(props: RoomCardProps): JSX.Element {
           <section className="property__reviews reviews">
             <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
             <PlaceReviewList reviews={reviews}/>
-            {currentAuthorizationStatus===AuthorizationStatus.Auth&&<CommentForm />}
+            {currentAuthorizationStatus===AuthorizationStatus.Auth&&<CommentForm currentId={currentId}/>}
           </section>
         </div>
       </div>

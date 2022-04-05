@@ -41,7 +41,7 @@ function Main({ offers }: MainProps): JSX.Element {
           </section>
         </div>
         <div className="cities">
-          {offers.length > 0 ? <FullContainer offers={offers} onListItemHover={onListItemHover} currentCity={currentCity} selectedPoint={selectedPoint} /> : <EmptyContainer city={currentCity} />}
+          {offers.length > 0 ? <FullContainer offers={offers} onListItemHover={onListItemHover} /> : <EmptyContainer />}
         </div>
       </main>
     </div>

@@ -4,15 +4,16 @@ import { useAppSelector } from '../../hooks';
 import Error from '../error/error';
 
 
-function Room(): JSX.Element {
+function Room() {
+  const offers = useAppSelector((state) => state.offers);
   const paramsId = Number(useParams().id);
-  const currentOffer = useAppSelector((state) => state.offer);
+  const test = offers.some((offer)=>offer.id===paramsId);
 
-  if (paramsId!==currentOffer.id) {
-    return <Error />;
+  if (test) {
+    return <RoomProperty /> ;
   }
 
-  return (<RoomProperty/>);
+  return <Error />;
 }
 
 export default Room;

@@ -2,14 +2,13 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { api } from '.';
 import { store } from '.';
 import { Offer } from '../types/offer';
-import { loadComments, loadOffers, loadOffersNearby, redirectToRoute, requireAuthorization, resetComments } from './action';
+import { setUser, loadComments, loadOffers, loadOffersNearby, redirectToRoute, requireAuthorization, resetComments } from './action';
 import { saveToken, dropToken } from '../services/token';
 import { APIRoute, AppRoute, AuthorizationStatus } from '../consts';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
 import { errorHandle } from '../services/error-handle';
 import { NewReview, Review } from '../types/review';
-import { useAppSelector } from '../hooks';
 
 const fetchOfferAction = createAsyncThunk(
   'data/fetchOffers',
@@ -25,9 +24,8 @@ const fetchOfferAction = createAsyncThunk(
 
 const fetchOfferNearbyAction = createAsyncThunk(
   'data/fetchOffersNearby',
-  async () => {
+  async (currentId: number) => {
     try {
-      const currentId = useAppSelector((state) => state.offerId);
       const { data } = await api.get<Offer[]>(`${APIRoute.Offers}/${currentId}/nearby`);
       store.dispatch(loadOffersNearby(data));
     } catch (error) {
@@ -38,9 +36,8 @@ const fetchOfferNearbyAction = createAsyncThunk(
 
 const fetchCommentAction = createAsyncThunk(
   'data/fetchComments',
-  async () => {
+  async (currentId: number) => {
     try {
-      const currentId = useAppSelector((state) => state.offerId);
       const { data } = await api.get<Review[]>(`${APIRoute.Comments}/${currentId}`);
       store.dispatch(resetComments());
       store.dispatch(loadComments(data));
@@ -65,10 +62,10 @@ const checkAuthAction = createAsyncThunk(
 
 const postCommentAction = createAsyncThunk(
   'user/postComment',
-  async ({ comment, rating }: NewReview) => {
+  async (newReview: NewReview) => {
     try {
-      const currentId = useAppSelector((state) => state.offerId);
-      await api.post<NewReview>(`${APIRoute.Comments}/${currentId}`, { comment, rating });
+      await api.post<NewReview>(`${APIRoute.Comments}/${newReview.id}`, newReview.review);
+      store.dispatch(fetchCommentAction(newReview.id));
     } catch (error) {
       errorHandle(error);
     }
@@ -79,7 +76,6 @@ const loginAction = createAsyncThunk(
   'user/login',
   async ({ login: email, password }: AuthData) => {
     try {
-
       const { data: { token } } = await api.post<UserData>(APIRoute.Login, { email, password });
       saveToken(token);
       store.dispatch(requireAuthorization(AuthorizationStatus.Auth));
@@ -87,6 +83,18 @@ const loginAction = createAsyncThunk(
     } catch (error) {
       errorHandle(error);
       store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+    }
+  },
+);
+
+const getUserAction = createAsyncThunk(
+  'user/login',
+  async () => {
+    try {
+      const {data} = await api.get<UserData>(APIRoute.Login);
+      store.dispatch(setUser(data));
+    } catch (error) {
+      errorHandle(error);
     }
   },
 );
@@ -111,5 +119,6 @@ export {
   loginAction,
   logoutAction,
   fetchOfferNearbyAction,
-  postCommentAction
+  postCommentAction,
+  getUserAction
 };
