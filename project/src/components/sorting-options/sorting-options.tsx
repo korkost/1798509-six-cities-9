@@ -4,7 +4,7 @@ import { useAppSelector } from '../../hooks';
 import SortingElement from '../sorting-element/sorting-element';
 
 function SortingOptions(): JSX.Element {
-  const currentType = useAppSelector((state) => state.sortingType);
+  const sortingType = useAppSelector(({OFFERS}) => OFFERS.sortingType);
   const types = Object.values(SortingType);
 
   const [ visible, setVisible ] = useState(false);
@@ -17,7 +17,7 @@ function SortingOptions(): JSX.Element {
         onClick={toggle}
         className="places__sorting-type" tabIndex={0}
       >
-        {currentType}
+        {sortingType}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>

@@ -1,14 +1,15 @@
 import { useAppSelector } from '../../hooks';
 import { store } from '../../store';
-import { getRating } from '../../store/action';
+import { getRating } from '../../store/offers-process/offers-process';
 
 type FormRatingStarProps = {
   id: number;
   title: string;
+  isDisabled: boolean
 };
 
-function FormRatingStar({ id, title }: FormRatingStarProps) {
-  const currentRating = useAppSelector((state) => state.commentRating);
+function FormRatingStar({ id, title, isDisabled }: FormRatingStarProps) {
+  const commentRating = useAppSelector(({OFFERS}) => OFFERS.commentRating);
 
   return (
     <>
@@ -19,7 +20,8 @@ function FormRatingStar({ id, title }: FormRatingStarProps) {
         id={`${id}-id`}
         type="radio"
         onChange={()=>{store.dispatch(getRating(id));}}
-        checked={id === currentRating}
+        checked={id === commentRating}
+        disabled={isDisabled}
       />
       <label htmlFor={`${id}-id`} className="reviews__rating-label form__rating-label" title={title}>
         <svg className="form__star-image" width="37" height="33">

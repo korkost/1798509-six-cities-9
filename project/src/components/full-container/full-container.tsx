@@ -6,19 +6,18 @@ import SortingOptions from '../sorting-options/sorting-options';
 
 type FullContainerProps = {
   offers: Offer[];
-  onListItemHover: (listItemName: number) => void;
-}
+};
 
-function FullContainer({offers, onListItemHover}: FullContainerProps): JSX.Element {
-  const currentCity = useAppSelector((state) => state.city);
+function FullContainer({offers}: FullContainerProps): JSX.Element {
+  const city = useAppSelector(({OFFERS}) => OFFERS.city);
 
   return (
     <div className="cities__places-container container">
       <section className="cities__places places">
         <h2 className="visually-hidden">Places</h2>
-        <b className="places__found">{offers.length} places to stay in {currentCity}</b>
+        <b className="places__found">{offers.length} places to stay in {city}</b>
         <SortingOptions />
-        {<CardsList offers={offers} onListItemHover={onListItemHover} />}
+        {<CardsList offers={offers} />}
       </section>
       <div className="cities__right-section">
         <section className="cities__map map">

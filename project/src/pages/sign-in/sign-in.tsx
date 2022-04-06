@@ -1,13 +1,16 @@
 import { FormEvent, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../../components/header/header';
+import { Cities } from '../../consts';
 import { useAppDispatch } from '../../hooks';
+import { store } from '../../store';
 import { loginAction } from '../../store/api-actions';
+import { changeСity } from '../../store/offers-process/offers-process';
 import { AuthData } from '../../types/auth-data';
 
 function SignIn(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
-
   const dispatch = useAppDispatch();
 
   const onSubmit = (authData: AuthData) => {
@@ -22,7 +25,12 @@ function SignIn(): JSX.Element {
         login: loginRef.current.value,
         password: passwordRef.current.value,
       });
-    }};
+    }
+  };
+
+
+  const cities = Object.values(Cities);
+  const randomCity = cities[Math.floor(Math.random() * cities.length)];
 
   return (
     <div className="page page--gray page--login">
@@ -63,9 +71,13 @@ function SignIn(): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="/">
-                <span>Amsterdam</span>
-              </a>
+              <Link
+                to="/"
+                className="locations__item-link"
+                onClick={() => store.dispatch(changeСity(randomCity))}
+              >
+                <span>{randomCity}</span>
+              </Link>
             </div>
           </section>
         </div>

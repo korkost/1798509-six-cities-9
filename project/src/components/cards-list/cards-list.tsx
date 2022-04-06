@@ -3,11 +3,9 @@ import { Offer } from '../../types/offer';
 
 type CardsListProps = {
   offers: Offer[];
-  onListItemHover: (listItemName: number) => void;
 }
 
-function CardsList(props: CardsListProps): JSX.Element {
-  const { offers, onListItemHover } = props;
+function CardsList({ offers }: CardsListProps): JSX.Element {
 
   return (
     <div className="cities__places-list places__list tabs__content">
@@ -18,7 +16,7 @@ function CardsList(props: CardsListProps): JSX.Element {
             offer={offer}
             articleClassChange='cities__place-card'
             imgClassChange='cities__image-wrapper'
-            onListItemHover={onListItemHover}
+            randerPlase={'PLAСE_CARD'}
           />
         ))
       }

@@ -1,16 +1,14 @@
 import { Offer } from '../../types/offer';
-import FavoriteCard from '../favorite-card/favorite-card';
 import { v4 as uuidv4 } from 'uuid';
+import { useAppSelector } from '../../hooks';
+import FavoritesOffersList from '../favorites/favorites-offers-list';
+import { changeСity } from '../../store/offers-process/offers-process';
+import { store } from '../../store';
+import { Link } from 'react-router-dom';
 
-type FavoritesFullProps = {
-  offers: Offer[];
-};
-
-function FavoritesFull({offers}: FavoritesFullProps): JSX.Element {
-  const favoriteOffers = offers.filter((offer) => offer.isFavorite);
-  const citiesList = new Set(favoriteOffers.map((offer)=>offer.city.name));
-
-  const getFavoriteOffersInCity = (city: string): typeof offers => favoriteOffers.filter((offer) => offer.city.name===city);
+function FavoritesFull(): JSX.Element {
+  const offersFavorite = useAppSelector(({DATA}) => DATA.offersFavorite);
+  const citiesList = new Set(offersFavorite.map((offer: Offer)=>offer.city.name));
 
   return (
     <main className="page__main page__main--favorites">
@@ -20,20 +18,20 @@ function FavoritesFull({offers}: FavoritesFullProps): JSX.Element {
           <ul className="favorites__list">
             {
               [...citiesList].map((city) => (
-                <li key={uuidv4()} className="favorites__locations-items">
+                <li
+                  key={uuidv4()}
+                  className="favorites__locations-items"
+                  onClick={()=>{store.dispatch(changeСity(city));}}
+                >
                   <div className="favorites__locations locations locations--current">
                     <div className="locations__item">
-                      <a className="locations__item-link" href="/">
+                      <Link to="/" className="locations__item-link" >
                         <span>{city}</span>
-                      </a>
+                      </Link>
                     </div>
                   </div>
                   <div className="favorites__places">
-                    {
-                      getFavoriteOffersInCity(city).map((offer) => (
-                        <FavoriteCard key={offer.id} offer={offer} />
-                      ))
-                    }
+                    <FavoritesOffersList city={city} />
                   </div>
                 </li>
               ))

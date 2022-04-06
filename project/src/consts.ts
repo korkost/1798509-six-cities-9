@@ -41,38 +41,14 @@ enum APIRoute {
   Comments = '/comments',
   Login = '/login',
   Logout = '/logout',
+  Favorite = '/favorite',
 }
 
-enum RatingLabels {
-  PERFECT = 'perfect',
-  GOOD = 'good',
-  NOT_BAD = 'not bad',
-  BADLY = 'badly',
-  TERRIBLY = 'terribly',
+enum NameSpace {
+  data = 'DATA',
+  offers = 'OFFERS',
+  user = 'USER',
 }
-
-const RATING = [
-  {
-    id: 5,
-    title: RatingLabels.PERFECT,
-  },
-  {
-    id: 4,
-    title: RatingLabels.GOOD,
-  },
-  {
-    id: 3,
-    title: RatingLabels.NOT_BAD,
-  },
-  {
-    id: 2,
-    title: RatingLabels.BADLY,
-  },
-  {
-    id: 1,
-    title: RatingLabels.TERRIBLY,
-  },
-];
 
 const getRatingPercent = (rating: number) => (rating / MAX_RATING) * 100;
 
@@ -91,7 +67,7 @@ export {
   SortingType,
   offersType,
   APIRoute,
-  RATING,
   getRatingPercent,
-  getFormatDate
+  getFormatDate,
+  NameSpace
 };

@@ -1,14 +1,17 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { api } from '.';
-import { store } from '.';
+import { api } from '../store';
+import { store } from '../store';
 import { Offer } from '../types/offer';
-import { setUser, loadComments, loadOffers, loadOffersNearby, redirectToRoute, requireAuthorization, resetComments } from './action';
+import { redirectToRoute } from './action';
 import { saveToken, dropToken } from '../services/token';
 import { APIRoute, AppRoute, AuthorizationStatus } from '../consts';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
 import { errorHandle } from '../services/error-handle';
 import { NewReview, Review } from '../types/review';
+import { loadComments, loadOffers, loadOffersFavorite, loadOffersNearby, resetComments } from './offers-data/offers-data';
+import { requireAuthorization, setUser } from './user-process/user-process';
+import { NewStatus } from '../types/favorite-status';
 
 const fetchOfferAction = createAsyncThunk(
   'data/fetchOffers',
@@ -16,6 +19,18 @@ const fetchOfferAction = createAsyncThunk(
     try {
       const { data } = await api.get<Offer[]>(APIRoute.Offers);
       store.dispatch(loadOffers(data));
+    } catch (error) {
+      errorHandle(error);
+    }
+  },
+);
+
+const fetchFavoriteAction = createAsyncThunk(
+  'data/fetchFavoritOffers',
+  async () => {
+    try {
+      const {data} = await api.get<Offer[]>(APIRoute.Favorite);
+      store.dispatch(loadOffersFavorite(data));
     } catch (error) {
       errorHandle(error);
     }
@@ -72,6 +87,17 @@ const postCommentAction = createAsyncThunk(
   },
 );
 
+const postFavoriteAction = createAsyncThunk(
+  'user/postComment',
+  async (newStatus: NewStatus) => {
+    try {
+      await api.post<NewStatus>(`${APIRoute.Favorite}/${newStatus.id}/${newStatus.status}`);
+    } catch (error) {
+      errorHandle(error);
+    }
+  },
+);
+
 const loginAction = createAsyncThunk(
   'user/login',
   async ({ login: email, password }: AuthData) => {
@@ -119,6 +145,8 @@ export {
   loginAction,
   logoutAction,
   fetchOfferNearbyAction,
+  fetchFavoriteAction,
   postCommentAction,
-  getUserAction
+  getUserAction,
+  postFavoriteAction
 };

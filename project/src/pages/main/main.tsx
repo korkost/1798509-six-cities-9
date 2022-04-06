@@ -1,47 +1,24 @@
 import EmptyContainer from '../../components/empty-container/empty-container';
 import CitiesList from '../../components/cities-list/cities-list';
 import Header from '../../components/header/header';
-import Navigation from '../../components/navigation/navigation';
-import { Offer } from '../../types/offer';
-import { useAppDispatch } from '../../hooks';
 import FullContainer from '../../components/full-container/full-container';
-import {
-  changeСity,
-  getOfferId,
-  resetOfferId
-} from '../../store/action';
+import {useAppSelector} from '../../hooks';
+import {sortOffers} from '../../common';
 
-type MainProps = {
-  offers: Offer[];
-}
-
-function Main({ offers }: MainProps): JSX.Element {
-
-  const dispatch = useAppDispatch();
-  const onListItemHover = (listItemName: number) => {
-    dispatch(getOfferId(listItemName));
-    const currentPoint = offers.find((offer) =>
-      offer.id === listItemName,
-    );
-    currentPoint ? dispatch(getOfferId(listItemName)) : dispatch(resetOfferId());
-  };
-
-  const onCityItemHover = (cityName: string) => {
-    dispatch(changeСity(cityName));
-  };
+function Main(): JSX.Element {
+  const offers = useAppSelector(({DATA}) => DATA.offers);
+  const city = useAppSelector(({OFFERS}) => OFFERS.city);
+  const sortingType = useAppSelector(({OFFERS}) => OFFERS.sortingType);
+  const sortedOffers = sortOffers(offers, city, sortingType);
 
   return (
     <div className="page page--gray page--main">
-      {<Header navigation={<Navigation />} />}
-      <main className="page__main page__main--index">
+      {<Header />}
+      <main className={`page__main page__main--index${!offers.length ? ' page__main--index-empty' : ''}`}>
         <h1 className="visually-hidden">Cities</h1>
-        <div className="tabs">
-          <section className="locations container">
-            <CitiesList onCityItemHover={onCityItemHover} />
-          </section>
-        </div>
+        <CitiesList />
         <div className="cities">
-          {offers.length > 0 ? <FullContainer offers={offers} onListItemHover={onListItemHover} /> : <EmptyContainer />}
+          {sortedOffers.length > 0 ? <FullContainer offers={sortedOffers}/> : <EmptyContainer />}
         </div>
       </main>
     </div>

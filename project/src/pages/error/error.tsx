@@ -1,11 +1,10 @@
 import { Link } from 'react-router-dom';
 import Header from '../../components/header/header';
-import Navigation from '../../components/navigation/navigation';
 
 function Error(): JSX.Element {
   return (
     <div className="page page--gray page--login">
-      <Header navigation={<Navigation />} />
+      <Header />
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">

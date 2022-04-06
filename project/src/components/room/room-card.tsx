@@ -1,7 +1,6 @@
 import CommentForm from '../form/form';
 import { v4 as uuidv4 } from 'uuid';
 import { Offer } from '../../types/offer';
-import { Review } from '../../types/review';
 import PlaceReviewList from '../place-review-list/place-review-list';
 import { correctType, paintRating } from '../../common';
 import { AuthorizationStatus } from '../../consts';
@@ -9,6 +8,9 @@ import { useAppSelector } from '../../hooks';
 import { store } from '../../store';
 import { fetchCommentAction } from '../../store/api-actions';
 import { useEffect } from 'react';
+import useButtonFavorite from '../../hooks/useButtonFavorite';
+import FavoriteButton from '../favorites/favorite-button';
+
 
 type RoomCardProps = {
   offer: Offer;
@@ -16,18 +18,21 @@ type RoomCardProps = {
 };
 
 function RoomCard({offer, currentId}: RoomCardProps): JSX.Element {
-  const {images, price, rating, title, type, description, bedrooms, maxAdults, host, isPremium, goods} = offer;
+  const {images, price, rating, title, type, description, bedrooms, maxAdults, host, isPremium, goods, isFavorite, id} = offer;
   const imagesForRender = images.slice(0, 6);
 
   const getPropertyMark = () => isPremium? <div className="property__mark"><span>Premium</span></div> : '';
 
-  const currentAuthorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector(({USER}) => USER.authorizationStatus);
 
   useEffect(() => {
     store.dispatch(fetchCommentAction(currentId));
   }, [currentId]);
 
-  const reviews: Review[] = useAppSelector((state) => state.comments);
+  const comments = useAppSelector(({DATA}) => DATA.comments);
+  const sortReviews = comments.slice(0, 10).sort((a, b)=> new Date(b.date).getTime() - new Date(a.date).getTime());
+
+  const [favoriteClass, handleButtonClick] = useButtonFavorite(isFavorite);
 
   return (
     <>
@@ -49,12 +54,13 @@ function RoomCard({offer, currentId}: RoomCardProps): JSX.Element {
             <h1 className="property__name">
               {title}
             </h1>
-            <button className="property__bookmark-button button" type="button">
-              <svg className="property__bookmark-icon" width="31" height="33">
-                <use xlinkHref="#icon-bookmark"></use>
-              </svg>
-              <span className="visually-hidden">To bookmarks</span>
-            </button>
+            <FavoriteButton
+              authorizationStatus={authorizationStatus}
+              favoriteClass={favoriteClass}
+              handleButtonClick={handleButtonClick}
+              id={id}
+              randerPlase={'PROPERTY'}
+            />
           </div>
           <div className="property__rating rating">
             <div className="property__stars rating__stars">
@@ -110,9 +116,9 @@ function RoomCard({offer, currentId}: RoomCardProps): JSX.Element {
             </div>
           </div>
           <section className="property__reviews reviews">
-            <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
-            <PlaceReviewList reviews={reviews}/>
-            {currentAuthorizationStatus===AuthorizationStatus.Auth&&<CommentForm currentId={currentId}/>}
+            <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
+            <PlaceReviewList reviews={sortReviews}/>
+            {authorizationStatus===AuthorizationStatus.Auth&&<CommentForm currentId={currentId}/>}
           </section>
         </div>
       </div>

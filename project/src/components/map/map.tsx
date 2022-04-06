@@ -17,7 +17,7 @@ type MapProps = {
 };
 
 function Map({offers, currentId}: MapProps) {
-  const selectedPin = useAppSelector((state) => state.offerId);
+  const offerId  = useAppSelector(({OFFERS}) => OFFERS.offerId);
   const mapRef = useRef(null);
   const cityCenter = offers[0].city;
   const markerGroup = useRef(L.layerGroup());
@@ -49,7 +49,7 @@ function Map({offers, currentId}: MapProps) {
             lat: latitude,
             lng: longitude,
           }, {
-            icon: (id === currentId || id === selectedPin)
+            icon: (id === currentId || id === offerId)
               ? currentCustomIcon
               : defaultCustomIcon,
           })
@@ -57,7 +57,7 @@ function Map({offers, currentId}: MapProps) {
       });
       map.flyTo([lat, lng], zoom);
     }
-  }, [currentCustomIcon, defaultCustomIcon, lat, lng, map,  markerGroup, offers, selectedPin, zoom]);
+  }, [currentCustomIcon, defaultCustomIcon, lat, lng, map,  markerGroup, offers, offerId, zoom]);
 
   return (
     <div
