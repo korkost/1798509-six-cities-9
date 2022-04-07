@@ -1,33 +1,71 @@
+import { Offer } from './types/offer';
+
+const defaultOffer: Offer = {
+  bedrooms: 0,
+  city: {
+    location: {
+      latitude: 0,
+      longitude: 0,
+      zoom: 0,
+    },
+    name: '',
+  },
+  description: '',
+  goods: [],
+  host: {
+    avatarUrl: '',
+    id: 0,
+    isPro: false,
+    name: '',
+  },
+  id: 0,
+  images: [],
+  isFavorite: false,
+  isPremium: false,
+  location: {
+    latitude: 0,
+    longitude: 0,
+    zoom: 0,
+  },
+  maxAdults: 0,
+  previewImage: '',
+  price: 0,
+  rating: 0,
+  title: '',
+  type: '',
+};
+
 const MAX_RATING = 5;
 
 const Cities = {
-  PARIS: 'Paris',
-  COLOGNE: 'Cologne',
-  BRUSSELS: 'Brussels',
-  AMSTERDAM: 'Amsterdam',
-  HAMBURG: 'Hamburg',
-  DUSSELDORF: 'Dusseldorf',
+  Paris: 'Paris',
+  Cologne: 'Cologne',
+  Brussels: 'Brussels',
+  Amsterdam: 'Amsterdam',
+  Hamburg: 'Hamburg',
+  Dusseldorf: 'Dusseldorf',
 };
 
 const SortingType = {
-  POPULAR: 'Popular',
-  PRICE_TO_HIGH: 'Price: low to high',
-  PRICE_TO_LOW: 'Price: high to low',
-  TOP: 'Top rated first',
+  Popular: 'Popular',
+  PriceToHigh: 'Price: low to high',
+  PriceToLow: 'Price: high to low',
+  Top: 'Top rated first',
 };
 
 const offersType = {
-  APPARTMENT: 'Apartment',
-  ROOM: 'Private Room',
-  HOUSE: 'House',
-  HOTEL: 'Hotel',
+  Apartment: 'Apartment',
+  Room: 'Private Room',
+  House: 'House',
+  Hotel: 'Hotel',
 };
 
 enum AppRoute {
   Login = '/login',
   Favorites = '/favorites',
-  Offer = '/offer/:id',
-  Root = '/'
+  Hotel = '/offer/:id',
+  Root = '/',
+  Error = '/404',
 }
 
 enum AuthorizationStatus {
@@ -45,9 +83,16 @@ enum APIRoute {
 }
 
 enum NameSpace {
-  data = 'DATA',
-  offers = 'OFFERS',
-  user = 'USER',
+  Data = 'Data',
+  Offers = 'Offers',
+  User = 'User',
+}
+
+const enum PlaceType {
+  Apartment = 'apartment',
+  Room = 'room',
+  House = 'house',
+  Hotel = 'hotel'
 }
 
 const getRatingPercent = (rating: number) => (rating / MAX_RATING) * 100;
@@ -61,6 +106,7 @@ const getFormatDate = (date: string) => {
 };
 
 export {
+  defaultOffer,
   AppRoute,
   AuthorizationStatus,
   Cities,
@@ -69,5 +115,6 @@ export {
   APIRoute,
   getRatingPercent,
   getFormatDate,
-  NameSpace
+  NameSpace,
+  PlaceType
 };

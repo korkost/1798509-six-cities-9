@@ -1,17 +1,28 @@
-import { FormEvent, useRef } from 'react';
+import {
+  ChangeEvent,
+  FormEvent,
+  useCallback,
+  useRef,
+  useState
+} from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../../components/header/header';
-import { Cities } from '../../consts';
-import { useAppDispatch } from '../../hooks';
+import { AuthorizationStatus, Cities } from '../../consts';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { store } from '../../store';
 import { loginAction } from '../../store/api-actions';
 import { changeСity } from '../../store/offers-process/offers-process';
 import { AuthData } from '../../types/auth-data';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import Main from '../main/main';
 
 function SignIn(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useAppDispatch();
+  const [isValidPassvord, setIsValidPassword] = useState(false);
+  const checkValidity = (password: string) => /^[0-9]+[A-Z]+|[A-Z]+[0-9]+$/i.test(password) ? setIsValidPassword(true) : setIsValidPassword(false);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   const onSubmit = (authData: AuthData) => {
     dispatch(loginAction(authData));
@@ -28,9 +39,18 @@ function SignIn(): JSX.Element {
     }
   };
 
+  const handlePasswordChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    evt.preventDefault();
+    passwordRef.current !== null && checkValidity(passwordRef.current.value);
+  };
 
   const cities = Object.values(Cities);
   const randomCity = cities[Math.floor(Math.random() * cities.length)];
+  const handleCityChange = useCallback(()=>store.dispatch(changeCity(randomCity)),[randomCity]);
+
+  if (authorizationStatus===AuthorizationStatus.Auth) {
+    return <Main/>;
+  }
 
   return (
     <div className="page page--gray page--login">
@@ -54,6 +74,8 @@ function SignIn(): JSX.Element {
                 <label className="visually-hidden">Password</label>
                 <input
                   ref={passwordRef}
+                  onChange={handlePasswordChange}
+                  data-testid="Password"
                   className="login__input form__input"
                   type="password"
                   name="password"
@@ -64,6 +86,8 @@ function SignIn(): JSX.Element {
               <button
                 className="login__submit form__submit button"
                 type="submit"
+                disabled={!isValidPassvord}
+                data-testid="SignInButton"
               >
                 Sign in
               </button>
@@ -74,7 +98,8 @@ function SignIn(): JSX.Element {
               <Link
                 to="/"
                 className="locations__item-link"
-                onClick={() => store.dispatch(changeСity(randomCity))}
+                onClick={handleCityChange}
+                data-testid="RandomCity"
               >
                 <span>{randomCity}</span>
               </Link>

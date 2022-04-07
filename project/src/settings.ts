@@ -26,4 +26,13 @@ const FavoriteButtonClass = {
   },
 };
 
-export {LogoType, FavoriteButtonClass};
+const enum RenderPlase {
+  PlaceCard = 'PlaceCard',
+  Property = 'Property'
+}
+
+export {
+  LogoType,
+  FavoriteButtonClass,
+  RenderPlase
+};

@@ -7,17 +7,26 @@ import PrivateRoute from '../components/private-route/private-route';
 import { AppRoute, AuthorizationStatus } from '../consts';
 import { useAppSelector } from '../hooks';
 import LoadingScreen from '../components/loading-screen/loading-screen';
-import HistoryRouter from '../components/history-route/history-route';
-import browserHistory from '../services/browser-history';
+import { getAuthorizationStatus } from '../store/user-process/selectors';
+import { getDataLoaded } from '../store/offers-data/selectors';
+import 'react-toastify/dist/ReactToastify.css';
 import Room from '../pages/room/room';
 import { ToastContainer } from 'react-toastify';
+import { useEffect } from 'react';
+import { store } from '../store';
+import { checkAuthAction, fetchOfferAction } from '../store/api-actions';
 
 const isCheckedAuth = (authorizationStatus: AuthorizationStatus): boolean =>
   authorizationStatus === AuthorizationStatus.Unknown;
 
 function App(): JSX.Element {
-  const {authorizationStatus} = useAppSelector(({USER}) => USER);
-  const {isDataLoaded} = useAppSelector(({DATA}) => DATA);
+  useEffect(()=>{
+    store.dispatch(fetchOfferAction());
+    store.dispatch(checkAuthAction());
+  }, []);
+
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const isDataLoaded = useAppSelector(getDataLoaded);
 
   if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
     return (
@@ -26,7 +35,7 @@ function App(): JSX.Element {
   }
 
   return (
-    <HistoryRouter history={browserHistory}>
+    <>
       <ToastContainer />
       <Routes>
         <Route index element={<Main />} />
@@ -38,10 +47,10 @@ function App(): JSX.Element {
           }
         />
         <Route path={AppRoute.Login} element={<SignIn />} />
-        <Route path={AppRoute.Offer} element={<Room />} />
+        <Route path={AppRoute.Hotel} element={<Room />} />
         <Route path="*" element={<Error />} />
       </Routes>
-    </HistoryRouter>
+    </>
   );
 }
 

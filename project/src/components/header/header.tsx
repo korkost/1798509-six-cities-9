@@ -1,11 +1,12 @@
 import { AuthorizationStatus } from '../../consts';
 import { useAppSelector } from '../../hooks';
-import LogoHeader from '../header/logo-header';
-import NavigationSignIn from '../navigation/navigation-sign-in';
-import NavigationSignOut from '../navigation/navigation-sign-out';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import LogoHeader from './logo-header/logo-header';
+import NavigationSignIn from '../navigation/navigation-sign-in/navigation-sign-in';
+import NavigationSignOut from '../navigation/navigation-sign-out/navigation-sign-out';
 
 function Header(): JSX.Element {
-  const { authorizationStatus } = useAppSelector(({ USER }) => USER);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   return (
     <header className="header">

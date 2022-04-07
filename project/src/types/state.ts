@@ -5,10 +5,14 @@ import { Review } from './review.js';
 
 type OffersData = {
   offers: Offer[],
+  offer: Offer,
   offersFavorite: [],
   offersNearby: Offer[],
   comments: Review[],
   isDataLoaded: boolean,
+  isOfferLoaded: boolean,
+  isLoadedOffersNearby: boolean,
+  isLoadedComments: boolean,
 };
 
 type OffersProcess = {

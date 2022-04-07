@@ -1,18 +1,40 @@
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import RoomProperty from '../../components/room/room-property';
+import LoadWrapper from '../../components/load-wrapper/load-wrapper';
+import RoomProperty from '../../components/room/room-property/room-property';
 import { useAppSelector } from '../../hooks';
-import Error from '../error/error';
+import { store } from '../../store';
+import {
+  fetchCommentAction,
+  fetchOfferNearbyAction,
+  fetchRoomAction
+} from '../../store/api-actions';
+import {
+  getLoadedComments,
+  getLoadedOffersNearby,
+  getOffer,
+  getOfferLoaded
+} from '../../store/offers-data/selectors';
 
 function Room() {
-  const offers = useAppSelector(({DATA}) => DATA.offers);
   const paramsId = Number(useParams().id);
-  const correctId = offers.some((offer)=>offer.id===paramsId);
 
-  if (correctId) {
-    return <RoomProperty /> ;
-  }
+  useEffect(() => {
+    store.dispatch(fetchRoomAction(paramsId));
+    store.dispatch(fetchCommentAction(paramsId));
+    store.dispatch(fetchOfferNearbyAction(paramsId));
+  }, [paramsId]);
 
-  return <Error />;
+  const isOfferLoaded = useAppSelector(getOfferLoaded);
+  const isLoadedOffersNearby = useAppSelector(getLoadedOffersNearby);
+  const isLoadedComments = useAppSelector(getLoadedComments);
+  const currentOffer = useAppSelector(getOffer);
+
+  return (
+    <LoadWrapper isLoaded = {isOfferLoaded && isLoadedOffersNearby && isLoadedComments} >
+      <RoomProperty currentOffer={currentOffer} />
+    </LoadWrapper>
+  );
 }
 
 export default Room;

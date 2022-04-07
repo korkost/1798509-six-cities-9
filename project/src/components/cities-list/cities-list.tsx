@@ -5,7 +5,7 @@ function CitiesList(): JSX.Element {
   const cities = Object.values(Cities);
 
   return (
-    <div className="tabs">
+    <div className="tabs" data-testid="CitiesList">
       <section className="locations container">
         <ul className="locations__list tabs__list">
           {

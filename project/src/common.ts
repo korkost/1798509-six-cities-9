@@ -1,12 +1,22 @@
-import { offersType, SortingType } from './consts';
+import { offersType, PlaceType, SortingType } from './consts';
 import { Offer } from './types/offer';
 
-enum PlaseType {
-  Apartment = 'apartment',
-  Room = 'room',
-  House = 'house',
-  Hotel = 'hotel'
-}
+const correctType = (type: string) => {
+  switch (type) {
+    case PlaseType.Apartment:
+      return offersType.APPARTMENT;
+      break;
+    case PlaseType.Room:
+      return offersType.ROOM;
+      break;
+    case PlaseType.House:
+      return offersType.HOUSE;
+      break;
+    case PlaseType.Hotel:
+      return offersType.HOTEL;
+      break;
+  }
+};
 
 const sortOffers = (offers: Offer[], city: string, type: string ) => {
   const filteredOffers = offers.filter((offer) => offer.city.name === city);
@@ -27,21 +37,22 @@ const sortOffers = (offers: Offer[], city: string, type: string ) => {
 
 const paintRating = (rating: number) => Math.round(rating)*20;
 
-const correctType = (type: string) => {
-  switch (type) {
-    case PlaseType.Apartment:
-      return offersType.APPARTMENT;
-      break;
-    case PlaseType.Room:
-      return offersType.ROOM;
-      break;
-    case PlaseType.House:
-      return offersType.HOUSE;
-      break;
-    case PlaseType.Hotel:
-      return offersType.HOTEL;
-      break;
+const updateData = (offers: Offer[], offer: Offer) => {
+  const index = offers.findIndex((item) => item.id === offer.id);
+  if (index === -1) {
+    return offers;
   }
+
+  return [
+    ...offers.slice(0, index),
+    offer,
+    ...offers.slice(index + 1),
+  ];
 };
 
-export {sortOffers, paintRating, correctType};
+export {
+  sortOffers,
+  paintRating,
+  correctType,
+  updateData
+};

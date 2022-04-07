@@ -3,14 +3,14 @@ import {Cities, NameSpace, SortingType} from '../../consts';
 import {OffersProcess} from '../../types/state';
 
 const initialState: OffersProcess = {
-  city: Cities.PARIS,
+  city: Cities.Paris,
   offerId: 0,
-  sortingType: SortingType.POPULAR,
+  sortingType: SortingType.Popular,
   commentRating: 0,
 };
 
 const offersProcess = createSlice({
-  name: NameSpace.offers,
+  name: NameSpace.Offers,
   initialState,
   reducers: {
     changeСity: (state, action) => {
