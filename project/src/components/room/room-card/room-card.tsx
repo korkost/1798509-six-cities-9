@@ -5,7 +5,6 @@ import PlaceReviewList from '../../place/place-review-list/place-review-list';
 import { correctType, paintRating } from '../../../common';
 import { AuthorizationStatus } from '../../../consts';
 import { useAppSelector } from '../../../hooks';
-import { useEffect } from 'react';
 import { getAuthorizationStatus } from '../../../store/user-process/selectors';
 import { getComments } from '../../../store/offers-data/selectors';
 import FavoriteButton from '../../favorites/favorite-button/favorite-button';
@@ -29,7 +28,7 @@ function RoomCard({ offer, currentId }: RoomCardProps): JSX.Element {
     isPremium,
     goods,
     isFavorite,
-    id
+    id,
   } = offer;
 
   const imagesForRender = images.slice(0, 6);

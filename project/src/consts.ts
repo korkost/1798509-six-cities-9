@@ -53,14 +53,14 @@ const SortingType = {
   Top: 'Top rated first',
 };
 
-const offersType = {
+const OffersType = {
   Apartment: 'Apartment',
   Room: 'Private Room',
   House: 'House',
   Hotel: 'Hotel',
 };
 
-enum AppRoute {
+const enum AppRoute {
   Login = '/login',
   Favorites = '/favorites',
   Hotel = '/offer/:id',
@@ -68,13 +68,13 @@ enum AppRoute {
   Error = '/404',
 }
 
-enum AuthorizationStatus {
+const enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
 
-enum APIRoute {
+const enum APIRoute {
   Offers = '/hotels',
   Comments = '/comments',
   Login = '/login',
@@ -82,7 +82,7 @@ enum APIRoute {
   Favorite = '/favorite',
 }
 
-enum NameSpace {
+const enum NameSpace {
   Data = 'Data',
   Offers = 'Offers',
   User = 'User',
@@ -111,7 +111,7 @@ export {
   AuthorizationStatus,
   Cities,
   SortingType,
-  offersType,
+  OffersType,
   APIRoute,
   getRatingPercent,
   getFormatDate,

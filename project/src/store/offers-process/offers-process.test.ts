@@ -2,7 +2,7 @@ import { Cities, SortingType } from '../../consts';
 import { makeFakeOffer, makeFakeReview } from '../../utils/mocks';
 import { offersProcess } from './offers-process';
 import {
-  changeCity,
+  changeСity,
   getOfferId,
   resetOfferId,
   changeSorting,
@@ -20,7 +20,7 @@ describe('Reducer: offersProcess', () => {
   it('should change city', () => {
     const state = {city: Cities.Paris, offerId: 0, sortingType: SortingType.Popular, commentRating: 0};
     const city = offer.city.name;
-    expect(offersProcess.reducer(state, changeCity(city)))
+    expect(offersProcess.reducer(state, changeСity(city)))
       .toEqual({city, offerId: 0, sortingType: SortingType.Popular, commentRating: 0});
   });
   it('should get offer id', () => {

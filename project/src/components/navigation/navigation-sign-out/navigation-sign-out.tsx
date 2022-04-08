@@ -41,4 +41,4 @@ function NavigationSignOut(): JSX.Element {
   );
 }
 
-export default memo(NavigationSignOut);
+export default NavigationSignOut;

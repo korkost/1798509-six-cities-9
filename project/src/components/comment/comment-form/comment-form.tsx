@@ -40,7 +40,7 @@ function CommentForm({ currentId }: CommentFormProps): JSX.Element {
       {
         review: {
           comment: newComment,
-          rating: commentRating
+          rating: commentRating,
         }
         ,
         id: currentId,

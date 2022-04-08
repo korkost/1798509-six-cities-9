@@ -2,8 +2,8 @@ import { configureMockStore } from '@jedmao/redux-mock-store';
 import {render, screen} from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
-import { makeFakeReview } from '../../utils/mocks';
-import HistoryRouter from '../history-route/history-router';
+import { makeFakeReview } from '../../../utils/mocks';
+import HistoryRouter from '../../history-router/history-router';
 import PlaceReviewList from './place-review-list';
 
 const mockStore = configureMockStore();

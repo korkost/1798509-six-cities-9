@@ -16,7 +16,7 @@ type PlaceCardProps = {
   articleClassChange: string;
   imgClassChange: string;
   favorites?: boolean;
-  randerPlase: RenderPlace,
+  renderPlace: RenderPlace,
 };
 
 function PlaceCard(props: PlaceCardProps): JSX.Element {
@@ -26,7 +26,7 @@ function PlaceCard(props: PlaceCardProps): JSX.Element {
     articleClassChange,
     imgClassChange,
     favorites,
-    randerPlase
+    renderPlace,
   } = props;
 
   const {
@@ -38,7 +38,7 @@ function PlaceCard(props: PlaceCardProps): JSX.Element {
     id,
     rating,
     isFavorite,
-    previewImage
+    previewImage,
   } = offer;
 
   const dispatch = useAppDispatch();

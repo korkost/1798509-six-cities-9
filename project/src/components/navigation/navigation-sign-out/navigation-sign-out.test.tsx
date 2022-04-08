@@ -3,7 +3,7 @@ import {createMemoryHistory} from 'history';
 import HistoryRouter from '../../history-router/history-router';
 import NavigationSignOut from './navigation-sign-out';
 import { configureMockStore } from '@jedmao/redux-mock-store';
-import { AppRoute, AuthorizationStatus } from '../....//consts';
+import { AppRoute, AuthorizationStatus } from '../../../consts';
 import { makeFakeUser } from '../../../utils/mocks';
 import { Provider } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';

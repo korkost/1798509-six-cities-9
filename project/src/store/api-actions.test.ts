@@ -10,10 +10,10 @@ import {
   loginAction,
   logoutAction,
   fetchOfferNearbyAction,
-  fetchFavouriteAction,
+  fetchFavoriteAction,
   postCommentAction,
   getUserAction,
-  postFavouriteAction,
+  postFavoriteAction,
   fetchRoomAction
 } from './api-actions';
 import {requireAuthorization, setUser} from './user-process/user-process';
@@ -128,7 +128,7 @@ describe('Async actions', () => {
 
     const store = mockStore();
 
-    await store.dispatch(fetchFavouriteAction());
+    await store.dispatch(fetchFavoriteAction());
     const actions = store.getActions().map(({type}) => type);
     expect(actions).toContain(loadOffersFavorite.toString());
   });
@@ -181,7 +181,7 @@ describe('Async actions', () => {
     const store = mockStore();
     Storage.prototype.setItem = jest.fn();
 
-    await store.dispatch(postFavouriteAction(mockStatus));
+    await store.dispatch(postFavoriteAction(mockStatus));
 
     const actions = store.getActions().map(({type}) => type);
     expect(actions).toContain(updateFavorites.toString());

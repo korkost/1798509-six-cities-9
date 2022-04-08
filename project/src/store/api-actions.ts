@@ -60,7 +60,7 @@ const fetchRoomAction = createAsyncThunk<void, number, {
   async (currentId: number, {dispatch, extra: api}) => {
     try {
       const {data} = await api.get<Offer[]>(`${APIRoute.Offers}/${currentId}`);
-      dispatch(loadOffer(data));
+      dispatch(loadOffers(data));
     } catch (error) {
       dispatch(redirectToRoute((AppRoute.Error)));
     }

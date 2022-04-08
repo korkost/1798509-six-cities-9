@@ -15,10 +15,7 @@ function Error(): JSX.Element {
               <small >Page not found</small>
             </h1>
             <h3>
-              <Link to="/"
-              className='header__logo-link'
-              style={{ color: '#4481c3', fontStyle: 'italic' }}
-              >
+              <Link to="/" className='header__logo-link' style={{ color: '#4481c3', fontStyle: 'italic' }} >
                 Go to main page
               </Link>
             </h3>

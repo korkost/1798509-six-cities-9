@@ -1,4 +1,4 @@
-import { store } from '../store/index.js';
+import {store} from '../store/index.js';
 import { AuthorizationStatus } from '../consts';
 import { Offer } from './offer.js';
 import { Review } from './review.js';

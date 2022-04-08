@@ -4,14 +4,14 @@ import RoomCard from '../room-card/room-card';
 import Map from '../../map/map';
 import { useAppSelector } from '../../../hooks';
 import { memo } from 'react';
-import { RenderPlase } from '../../../settings';
+import { RenderPlace } from '../../../settings';
 import { getNearby } from '../../../store/offers-data/selectors';
 import { Offer } from '../../../types/offer';
 import { useParams } from 'react-router-dom';
 
 const articleClass = 'near-places__card';
 const imgClass = 'near-places__image-wrapper';
-const offersNearbyPlace = RenderPlase.PlaceCard;
+const offersNearbyPlace = RenderPlace.PlaceCard;
 
 type RoomPropertyProps = {
   currentOffer: Offer;
@@ -38,7 +38,7 @@ function RoomProperty({currentOffer}: RoomPropertyProps): JSX.Element {
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
               {
-                offersNearby.map((item) => <PlaceCard key = {item.id} offer={item} articleClassChange={articleClass} imgClassChange={imgClass} randerPlase={offersNearbyPlace}  />)
+                offersNearby.map((item) => <PlaceCard key = {item.id} offer={item} articleClassChange={articleClass} imgClassChange={imgClass} renderPlace={offersNearbyPlace}  />)
               }
             </div>
           </section>

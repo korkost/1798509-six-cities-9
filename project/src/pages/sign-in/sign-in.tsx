@@ -46,7 +46,7 @@ function SignIn(): JSX.Element {
 
   const cities = Object.values(Cities);
   const randomCity = cities[Math.floor(Math.random() * cities.length)];
-  const handleCityChange = useCallback(()=>store.dispatch(changeCity(randomCity)),[randomCity]);
+  const handleCityChange = useCallback(()=>store.dispatch(changeСity(randomCity)),[randomCity]);
 
   if (authorizationStatus===AuthorizationStatus.Auth) {
     return <Main/>;

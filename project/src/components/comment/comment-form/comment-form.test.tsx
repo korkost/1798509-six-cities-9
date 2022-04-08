@@ -3,10 +3,10 @@ import {createMemoryHistory} from 'history';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {Provider} from 'react-redux';
 import userEvent from '@testing-library/user-event';
-import HistoryRouter from '../history-route/history-router';
-import {makeFakeUser} from '../../utils/mocks';
-import CommentForm from './comment-form';
-import {AuthorizationStatus} from '../../consts';
+import HistoryRouter from '../../history-router/history-router';
+import {makeFakeUser} from '../../../utils/mocks';
+import CommentForm from '../comment-form/comment-form';
+import {AuthorizationStatus} from '../../../consts';
 
 const mockStore = configureMockStore();
 const mockUser = makeFakeUser();

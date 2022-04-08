@@ -4,9 +4,9 @@ import userEvent from '@testing-library/user-event';
 import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../consts';
-import { makeFakeOffer, makeFakeUser } from '../../utils/mocks';
-import HistoryRouter from '../history-route/history-router';
+import { AppRoute, AuthorizationStatus } from '../../../consts';
+import { makeFakeOffer, makeFakeUser } from '../../../utils/mocks';
+import HistoryRouter from '../../history-router/history-router';
 import PlaceCard from './place-card';
 
 const mockStore = configureMockStore();

@@ -12,27 +12,25 @@ const LogoType = {
 };
 
 const FavoriteButtonClass = {
-  PLAСE_CARD: {
-    name: 'PLAСE_CARD',
-    type: 'place-card',
-    width: '18',
-    height: '19',
+  PlaceCard: {
+    Type: 'place-card',
+    Width: '18',
+    Height: '19',
   },
-  PROPERTY: {
-    name: 'PROPERTY',
-    type: 'property',
-    width: '31',
-    height: '33',
+  Property: {
+    Type: 'property',
+    Width: '31',
+    Height: '33',
   },
 };
 
-const enum RenderPlase {
+const enum RenderPlace {
   PlaceCard = 'PlaceCard',
-  Property = 'Property'
+  Property = 'Property',
 }
 
 export {
   LogoType,
   FavoriteButtonClass,
-  RenderPlase
+  RenderPlace
 };

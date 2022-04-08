@@ -47,3 +47,6 @@ export {
   changeSorting,
   getRating
 };
+
+export class changeCity {
+}
