@@ -6,7 +6,7 @@ import { Review } from './review.js';
 type OffersData = {
   offers: Offer[],
   offer: Offer,
-  offersFavorite: [],
+  offersFavorite: Offer[],
   offersNearby: Offer[],
   comments: Review[],
   isDataLoaded: boolean,
