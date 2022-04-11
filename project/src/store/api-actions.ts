@@ -11,6 +11,7 @@ import { errorHandle } from '../services/error-handle';
 import { NewReview, Review } from '../types/review';
 import {
   loadComments,
+  loadOffer,
   loadOffers,
   loadOffersFavorite,
   loadOffersNearby,
@@ -43,7 +44,7 @@ const fetchOfferAction = createAsyncThunk<void, undefined, {
   ApiActionType.FetchOffers,
   async (_arg, {dispatch, extra: api}) => {
     try {
-      const { data } = await api.get<Offer[]>(APIRoute.Offers);
+      const {data} = await api.get<Offer[]>(APIRoute.Offers);
       dispatch(loadOffers(data));
     } catch (error) {
       errorHandle(error);
@@ -60,14 +61,14 @@ const fetchRoomAction = createAsyncThunk<void, number, {
   async (currentId: number, {dispatch, extra: api}) => {
     try {
       const {data} = await api.get<Offer[]>(`${APIRoute.Offers}/${currentId}`);
-      dispatch(loadOffers(data));
+      dispatch(loadOffer(data));
     } catch (error) {
       dispatch(redirectToRoute((AppRoute.Error)));
     }
   },
 );
 
-const fetchFavoriteAction = createAsyncThunk<void, undefined, {
+const fetchFavouriteAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
@@ -83,7 +84,7 @@ const fetchFavoriteAction = createAsyncThunk<void, undefined, {
   },
 );
 
-const fetchOfferNearbyAction = createAsyncThunk<void, number, {
+const fetchOfferNearbyAction =  createAsyncThunk<void, number, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
@@ -91,7 +92,7 @@ const fetchOfferNearbyAction = createAsyncThunk<void, number, {
   ApiActionType.FetchOffersNearby,
   async (currentId: number, {dispatch, extra: api}) => {
     try {
-      const { data } = await api.get<Offer[]>(`${APIRoute.Offers}/${currentId}/nearby`);
+      const {data} = await api.get<Offer[]>(`${APIRoute.Offers}/${currentId}/nearby`);
       dispatch(loadOffersNearby(data));
     } catch (error) {
       errorHandle(error);
@@ -107,7 +108,7 @@ const fetchCommentAction = createAsyncThunk<void, number, {
   ApiActionType.FetchComments,
   async (currentId: number, {dispatch, extra: api}) => {
     try {
-      const { data } = await api.get<Review[]>(`${APIRoute.Comments}/${currentId}`);
+      const {data} = await api.get<Review[]>(`${APIRoute.Comments}/${currentId}`);
       dispatch(resetComments());
       dispatch(loadComments(data));
     } catch (error) {
@@ -126,7 +127,7 @@ const checkAuthAction = createAsyncThunk<void, undefined, {
     try {
       await api.get(APIRoute.Login);
       dispatch(requireAuthorization(AuthorizationStatus.Auth));
-    } catch (error) {
+    } catch(error) {
       errorHandle(error);
       dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
     }
@@ -149,7 +150,7 @@ const postCommentAction = createAsyncThunk<void, NewReview, {
   },
 );
 
-const postFavoriteAction = createAsyncThunk<void, NewStatus, {
+const postFavouriteAction = createAsyncThunk<void, NewStatus, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
@@ -173,7 +174,7 @@ const loginAction = createAsyncThunk<void, AuthData, {
   ApiActionType.Login,
   async ({login: email, password}: AuthData, {dispatch, extra: api}) => {
     try {
-      const { data: { token } } = await api.post<UserData>(APIRoute.Login, { email, password });
+      const {data: {token}} = await api.post<UserData>(APIRoute.Login, {email, password});
       saveToken(token);
       dispatch(requireAuthorization(AuthorizationStatus.Auth));
       dispatch(redirectToRoute(AppRoute.Root));
@@ -225,9 +226,9 @@ export {
   loginAction,
   logoutAction,
   fetchOfferNearbyAction,
-  fetchFavoriteAction,
+  fetchFavouriteAction,
   postCommentAction,
   getUserAction,
-  postFavoriteAction,
+  postFavouriteAction,
   ApiActionType
 };

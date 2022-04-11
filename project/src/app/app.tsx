@@ -20,7 +20,7 @@ const isCheckedAuth = (authorizationStatus: AuthorizationStatus): boolean =>
   authorizationStatus === AuthorizationStatus.Unknown;
 
 function App(): JSX.Element {
-  useEffect(() => {
+  useEffect(()=>{
     store.dispatch(fetchOfferAction());
     store.dispatch(checkAuthAction());
   }, []);

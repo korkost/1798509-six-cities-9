@@ -13,7 +13,7 @@ type CommentRatingListProps = {
   isDisabled: boolean
 };
 
-export default function CommentRatingList({ isDisabled }: CommentRatingListProps): JSX.Element {
+export default function CommentRatingList({isDisabled}: CommentRatingListProps): JSX.Element {
 
   return (
     <div className="reviews__rating-form form__rating" data-testid="commentRating">
