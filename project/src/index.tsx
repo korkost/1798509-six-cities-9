@@ -1,19 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import App from './app/app';
-import {offers} from './mocks/offers';
-import {reviews} from './mocks/reviews';
-
-const Setting = {
-  PLACES_COUNT: 500,
-};
+import { store } from './store';
+import HistoryRouter from './components/history-router/history-router';
+import browserHistory from './services/browser-history';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App
-      placesCount={Setting.PLACES_COUNT}
-      offers={offers}
-      reviews={reviews}
-    />
+    <Provider store={store}>
+      <HistoryRouter history={browserHistory}>
+        <App />
+      </HistoryRouter>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root'));

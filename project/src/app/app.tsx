@@ -1,37 +1,52 @@
-import {AppRoute, AuthorizationStatus} from '../consts';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
-import Error from '../pages/error/error';
-import Favorites from '../pages/favorites/favorites';
-import {Offer} from '../types/offer';
+import { Route, Routes } from 'react-router-dom';
 import Main from '../pages/main/main';
-import PrivateRoute from '../components/private-route/private-route';
-import Room from '../pages/room/room';
-import {Review} from '../types/review';
+import Favorites from '../pages/favorites/favorites';
 import SignIn from '../pages/sign-in/sign-in';
+import Error from '../pages/error/error';
+import PrivateRoute from '../components/private-route/private-route';
+import { AppRoute, AuthorizationStatus } from '../consts';
+import { useAppSelector } from '../hooks';
+import LoadingScreen from '../components/loading-screen/loading-screen';
+import { getAuthorizationStatus } from '../store/user-process/selectors';
+import { getDataLoaded } from '../store/offers-data/selectors';
+import Room from '../pages/room/room';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useEffect } from 'react';
+import { store } from '../store';
+import { checkAuthAction, fetchOfferAction } from '../store/api-actions';
 
-type AppScreenProps = {
-  placesCount: number;
-  offers: Offer[];
-  reviews: Review[];
-}
+const isCheckedAuth = (authorizationStatus: AuthorizationStatus): boolean =>
+  authorizationStatus === AuthorizationStatus.Unknown;
 
-function App({placesCount, offers, reviews}: AppScreenProps): JSX.Element {
+function App(): JSX.Element {
+  useEffect(() => {
+    store.dispatch(fetchOfferAction());
+    store.dispatch(checkAuthAction());
+  }, []);
+
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const isDataLoaded = useAppSelector(getDataLoaded);
+
+  if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
+
   return (
-    <BrowserRouter>
+    <>
+      <ToastContainer />
       <Routes>
-        <Route index element={<Main offers={offers} placesCount={placesCount} />} />
+        <Route index element={<Main />} />
         <Route path={AppRoute.Favorites}
-          element={
-            <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
-              <Favorites offers={offers}/>
-            </PrivateRoute>
-          }
+          element={<PrivateRoute><Favorites /></PrivateRoute>}
         />
         <Route path={AppRoute.Login} element={<SignIn />} />
-        <Route path={AppRoute.Offer} element={<Room reviews={reviews} offers={offers} />} />
+        <Route path={AppRoute.Hotel} element={<Room />} />
         <Route path="*" element={<Error />} />
       </Routes>
-    </BrowserRouter>
+    </>
   );
 }
 

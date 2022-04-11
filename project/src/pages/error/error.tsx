@@ -1,11 +1,10 @@
 import { Link } from 'react-router-dom';
 import Header from '../../components/header/header';
-import Navigation from '../../components/navigation/navigation';
 
 function Error(): JSX.Element {
   return (
     <div className="page page--gray page--login">
-      <Header navigation={<Navigation />} />
+      <Header />
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">
@@ -16,7 +15,7 @@ function Error(): JSX.Element {
               <small >Page not found</small>
             </h1>
             <h3>
-              <Link to="/" className='header__logo-link' style={{ color: '#4481c3', fontStyle: 'italic' }}>
+              <Link to="/" className='header__logo-link' style={{ color: '#4481c3', fontStyle: 'italic' }} >
                 Go to main page
               </Link>
             </h3>

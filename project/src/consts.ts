@@ -1,48 +1,99 @@
-enum AppRoute {
+import { Offer } from './types/offer';
+
+const defaultOffer: Offer = {
+  bedrooms: 0,
+  city: {
+    location: {
+      latitude: 0,
+      longitude: 0,
+      zoom: 0,
+    },
+    name: '',
+  },
+  description: '',
+  goods: [],
+  host: {
+    avatarUrl: '',
+    id: 0,
+    isPro: false,
+    name: '',
+  },
+  id: 0,
+  images: [],
+  isFavorite: false,
+  isPremium: false,
+  location: {
+    latitude: 0,
+    longitude: 0,
+    zoom: 0,
+  },
+  maxAdults: 0,
+  previewImage: '',
+  price: 0,
+  rating: 0,
+  title: '',
+  type: '',
+};
+
+const MAX_RATING = 5;
+
+const Cities = {
+  Paris: 'Paris',
+  Cologne: 'Cologne',
+  Brussels: 'Brussels',
+  Amsterdam: 'Amsterdam',
+  Hamburg: 'Hamburg',
+  Dusseldorf: 'Dusseldorf',
+};
+
+const SortingType = {
+  Popular: 'Popular',
+  PriceToHigh: 'Price: low to high',
+  PriceToLow: 'Price: high to low',
+  Top: 'Top rated first',
+};
+
+const OffersType = {
+  Apartment: 'Apartment',
+  Room: 'Private Room',
+  House: 'House',
+  Hotel: 'Hotel',
+};
+
+const enum AppRoute {
   Login = '/login',
   Favorites = '/favorites',
-  Offer = '/offer/:id',
-  Root = '/'
+  Hotel = '/offer/:id',
+  Root = '/',
+  Error = '/404',
 }
 
-enum AuthorizationStatus {
+const enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
 
-enum RatingLabels {
-  PERFECT = 'perfect',
-  GOOD = 'good',
-  NOT_BAD = 'not bad',
-  BADLY = 'badly',
-  TERRIBLY = 'terribly',
+const enum APIRoute {
+  Offers = '/hotels',
+  Comments = '/comments',
+  Login = '/login',
+  Logout = '/logout',
+  Favorite = '/favorite',
 }
 
-const RATING = [
-  {
-    id: 5,
-    title: RatingLabels.PERFECT,
-  },
-  {
-    id: 4,
-    title: RatingLabels.GOOD,
-  },
-  {
-    id: 3,
-    title: RatingLabels.NOT_BAD,
-  },
-  {
-    id: 2,
-    title: RatingLabels.BADLY,
-  },
-  {
-    id: 1,
-    title: RatingLabels.TERRIBLY,
-  },
-];
+const enum NameSpace {
+  Data = 'Data',
+  Offers = 'Offers',
+  User = 'User',
+}
 
-const MAX_RATING = 5;
+const enum PlaceType {
+  Apartment = 'apartment',
+  Room = 'room',
+  House = 'house',
+  Hotel = 'hotel'
+}
 
 const getRatingPercent = (rating: number) => (rating / MAX_RATING) * 100;
 
@@ -54,4 +105,16 @@ const getFormatDate = (date: string) => {
   return `${getMonth} ${getYear}`;
 };
 
-export {AppRoute, AuthorizationStatus, RATING, getRatingPercent, getFormatDate};
+export {
+  defaultOffer,
+  AppRoute,
+  AuthorizationStatus,
+  Cities,
+  SortingType,
+  OffersType,
+  APIRoute,
+  getRatingPercent,
+  getFormatDate,
+  NameSpace,
+  PlaceType
+};
