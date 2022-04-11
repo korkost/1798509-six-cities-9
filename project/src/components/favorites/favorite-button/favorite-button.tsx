@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { memo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../../consts';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
@@ -28,15 +28,9 @@ function FavoriteButton({ isFavorite, id, renderPlace }: FavoriteButtonProps): J
 
   if (authorizationStatus === AuthorizationStatus.NoAuth) {
     return (
-      <Link
-        to={AppRoute.Login}
-      >
+      <Link to={AppRoute.Login} >
         <button className={`${type}__bookmark-button button`} type="button">
-          <svg
-            className={`${type}__bookmark-icon`}
-            width={width}
-            height={height}
-          >
+          <svg className={`${type}__bookmark-icon`} width={width} height={height} >
             <use xlinkHref="#icon-bookmark"></use>
           </svg>
           <span className="visually-hidden">To bookmarks</span>
@@ -51,11 +45,7 @@ function FavoriteButton({ isFavorite, id, renderPlace }: FavoriteButtonProps): J
       onClick={handleButtonClick}
       type="button"
     >
-      <svg
-        className={`${type}__bookmark-icon`}
-        width={width}
-        height={height}
-      >
+      <svg className={`${type}__bookmark-icon`} width={width} height={height} >
         <use xlinkHref="#icon-bookmark"></use>
       </svg>
       <span className="visually-hidden">To bookmarks</span>
@@ -63,4 +53,5 @@ function FavoriteButton({ isFavorite, id, renderPlace }: FavoriteButtonProps): J
   );
 }
 
-export default FavoriteButton;
+export default memo(FavoriteButton, (prevProps, nextProps) => prevProps === nextProps);
+

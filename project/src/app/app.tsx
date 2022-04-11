@@ -9,9 +9,9 @@ import { useAppSelector } from '../hooks';
 import LoadingScreen from '../components/loading-screen/loading-screen';
 import { getAuthorizationStatus } from '../store/user-process/selectors';
 import { getDataLoaded } from '../store/offers-data/selectors';
-import 'react-toastify/dist/ReactToastify.css';
 import Room from '../pages/room/room';
 import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useEffect } from 'react';
 import { store } from '../store';
 import { checkAuthAction, fetchOfferAction } from '../store/api-actions';
@@ -20,7 +20,7 @@ const isCheckedAuth = (authorizationStatus: AuthorizationStatus): boolean =>
   authorizationStatus === AuthorizationStatus.Unknown;
 
 function App(): JSX.Element {
-  useEffect(()=>{
+  useEffect(() => {
     store.dispatch(fetchOfferAction());
     store.dispatch(checkAuthAction());
   }, []);
@@ -40,11 +40,7 @@ function App(): JSX.Element {
       <Routes>
         <Route index element={<Main />} />
         <Route path={AppRoute.Favorites}
-          element={
-            <PrivateRoute>
-              <Favorites />
-            </PrivateRoute>
-          }
+          element={<PrivateRoute><Favorites /></PrivateRoute>}
         />
         <Route path={AppRoute.Login} element={<SignIn />} />
         <Route path={AppRoute.Hotel} element={<Room />} />

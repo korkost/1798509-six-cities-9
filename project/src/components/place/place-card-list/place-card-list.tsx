@@ -10,10 +10,10 @@ type PlaceCardListProps = {
   offers: Offer[];
 }
 
-function PlaceCardList({ offers }: PlaceCardListProps): JSX.Element {
+function PlaceCardList({offers}: PlaceCardListProps): JSX.Element {
 
   return (
-    <div className="cities__places-list places__list tabs__content">
+    <div className="cities__places-list places__list tabs__content" data-testid="PlaceList">
       {
         offers.map((offer) => (
           <PlaceCard

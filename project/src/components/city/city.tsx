@@ -18,11 +18,7 @@ function City({ currentCity }: CityProps): JSX.Element {
     <li onClick={hoverCityClick}
       className="locations__item"
     >
-      <Link
-        to=""
-        title='offer'
-        data-testid="City"
-        className={`locations__item-link tabs__item ${currentCity === city && 'tabs__item--active'}`} >
+      <Link to="" title='offer' data-testid="City" className={`locations__item-link tabs__item ${currentCity === city && 'tabs__item--active'}`} >
         <span>
           {currentCity}
         </span>

@@ -1,11 +1,15 @@
-import {render, screen} from '@testing-library/react';
-import {createMemoryHistory} from 'history';
-import {Provider} from 'react-redux';
-import {configureMockStore} from '@jedmao/redux-mock-store';
+import { render, screen } from '@testing-library/react';
+import { createMemoryHistory } from 'history';
+import { Provider } from 'react-redux';
+import { configureMockStore } from '@jedmao/redux-mock-store';
 import App from './app';
 import HistoryRouter from '../components/history-router/history-router';
 import { AppRoute, AuthorizationStatus } from '../consts';
-import { makeFakeOffer, makeFakeReview, makeFakeUser } from '../utils/mocks';
+import {
+  makeFakeOffer,
+  makeFakeReview,
+  makeFakeUser
+} from '../utils/mocks';
 import { generatePath } from 'react-router-dom';
 
 const mockStore = configureMockStore();
@@ -17,7 +21,8 @@ const mockComments = [makeFakeReview(), makeFakeReview()];
 const store = mockStore({
   User: {
     authorizationStatus: AuthorizationStatus.Auth,
-    user: mockUser},
+    user: mockUser
+  },
   Data: {
     offers: mockOffers,
     offer: mockOffer,
@@ -29,7 +34,7 @@ const store = mockStore({
     isLoadedOffersNearby: true,
     isLoadedComments: true,
   },
-  Offers: {offerId: 1},
+  Offers: { offerId: 1 },
 });
 
 const history = createMemoryHistory();
@@ -57,7 +62,8 @@ describe('Application Routing', () => {
     const newStore = mockStore({
       User: {
         authorizationStatus: AuthorizationStatus.NoAuth,
-        user: mockUser},
+        user: mockUser
+      },
       Data: {
         offers: mockOffers,
         offer: mockOffer,
@@ -69,7 +75,7 @@ describe('Application Routing', () => {
         isLoadedOffersNearby: true,
         isLoadedComments: true,
       },
-      Offers: {offerId: 1},
+      Offers: { offerId: 1 },
     });
 
     render(

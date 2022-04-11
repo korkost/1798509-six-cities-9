@@ -14,7 +14,7 @@ type RoomCardProps = {
   currentId: number
 };
 
-function RoomCard({ offer, currentId }: RoomCardProps): JSX.Element {
+function RoomCard({offer, currentId}: RoomCardProps): JSX.Element {
   const {
     images,
     price,

@@ -9,7 +9,7 @@ import { LogoType } from '../../settings';
 import { getFavorite } from '../../store/offers-data/selectors';
 
 function Favorites(): JSX.Element {
-  useEffect(() => { store.dispatch(fetchFavoriteAction()); }, []);
+  useEffect(() => {store.dispatch(fetchFavoriteAction());}, []);
   const offers = useAppSelector(getFavorite).filter(({isFavorite}) => isFavorite);
 
   return (

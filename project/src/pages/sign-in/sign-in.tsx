@@ -64,6 +64,7 @@ function SignIn(): JSX.Element {
                 <label className="visually-hidden">E-mail</label>
                 <input
                   ref={loginRef}
+                  data-testid="Email"
                   className="login__input form__input"
                   type="email"
                   name="email"
