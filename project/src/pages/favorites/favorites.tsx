@@ -3,13 +3,13 @@ import FavoritesFull from '../../components/favorites/favorites-full/favorites-f
 import FavoritesEmpty from '../../components/favorites/favorites-empty/favorites-empty';
 import { useAppSelector } from '../../hooks';
 import { store } from '../../store';
-import { fetchFavoriteAction } from '../../store/api-actions';
+import { fetchFavouriteAction } from '../../store/api-actions';
 import { useEffect } from 'react';
 import { LogoType } from '../../settings';
 import { getFavorite } from '../../store/offers-data/selectors';
 
 function Favorites(): JSX.Element {
-  useEffect(() => {store.dispatch(fetchFavoriteAction());}, []);
+  useEffect(() => {store.dispatch(fetchFavouriteAction());}, []);
   const offers = useAppSelector(getFavorite).filter(({isFavorite}) => isFavorite);
 
   return (

@@ -17,7 +17,7 @@ const CommentLength = {
 
 const ErrorMessage = 'Something went wrong, please try posting your comment later';
 
-function CommentForm({ currentId }: CommentFormProps): JSX.Element {
+function CommentForm({currentId}: CommentFormProps): JSX.Element {
   const [newComment, setComment] = useState('');
   const [isCommentLengthValid, setIsCommentLengthValid] = useState(false);
   const [isCommentDisabled, setCommentDisabling] = useState(false);
@@ -40,8 +40,7 @@ function CommentForm({ currentId }: CommentFormProps): JSX.Element {
       {
         review: {
           comment: newComment,
-          rating: commentRating,
-        }
+          rating: commentRating}
         ,
         id: currentId,
       }))
@@ -55,11 +54,11 @@ function CommentForm({ currentId }: CommentFormProps): JSX.Element {
     <form data-testid="CommentForm" onSubmit={handleSubmit} className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
-        <FormRating isDisabled={isCommentDisabled} />
+        <FormRating isDisabled = {isCommentDisabled}/>
       </div>
       <textarea
         value={newComment}
-        onChange={(evt) => { handleCommentChange(evt.target.value); }}
+        onChange={(evt)=>{handleCommentChange(evt.target.value);}}
         disabled={isCommentDisabled}
         className="reviews__textarea form__textarea"
         id="review"
@@ -69,13 +68,13 @@ function CommentForm({ currentId }: CommentFormProps): JSX.Element {
       </textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
-          To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
+              To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
         <button
           data-testid="Submit"
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={commentRating === 0 || !isCommentLengthValid || isCommentDisabled}
+          disabled={commentRating===0 || !isCommentLengthValid || isCommentDisabled}
         >
           Submit
         </button>

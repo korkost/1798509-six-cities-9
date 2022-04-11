@@ -89,9 +89,9 @@ function PlaceCard(props: PlaceCardProps): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`/offer/${id}`} title='/offer'>{title}</Link>
+          <Link data-testid="TitleLink" to={`/offer/${id}`} title='/offer'>{title}</Link>
         </h2>
-        <p className="place-card__type">{correctType(type)}</p>
+        <p className="place-card__type" data-testid="title" >{correctType(type)}</p>
       </div>
     </article>
   );

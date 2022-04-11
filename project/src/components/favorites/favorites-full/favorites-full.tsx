@@ -1,7 +1,7 @@
 import { Offer } from '../../../types/offer';
 import { v4 as uuidv4 } from 'uuid';
 import FavoritesOffersList from '../favorites-offers-list/favorites-offers-list';
-import { changeСity } from '../../../store/offers-process/offers-process';
+import { changeCity } from '../../../store/offers-process/offers-process';
 import { store } from '../../../store';
 import { Link } from 'react-router-dom';
 
@@ -24,7 +24,7 @@ function FavoritesFull({offers}: FavoritesFullProps): JSX.Element {
                   key={uuidv4()}
                   className="favorites__locations-items"
                   data-testid="CityFavorite"
-                  onClick={()=>{store.dispatch(changeСity(city));}}
+                  onClick={()=>{store.dispatch(changeCity(city));}}
                 >
                   <div className="favorites__locations locations locations--current">
                     <div className="locations__item">
